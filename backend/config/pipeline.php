@@ -39,6 +39,8 @@ $app->pipe(ImplicitHeadMiddleware::class);
 $app->pipe(ImplicitOptionsMiddleware::class);
 $app->pipe(UrlHelperMiddleware::class);
 
+
+
 // Add more middleware here that needs to introspect the routing results; this
 // might include:
 //
@@ -48,6 +50,7 @@ $app->pipe(UrlHelperMiddleware::class);
 
 // Register the dispatch middleware in the middleware pipeline
 $app->pipeDispatchMiddleware();
+
 
 // At this point, if no Response is return by any middleware, the
 // NotFoundHandler kicks in; alternately, you can provide other fallback

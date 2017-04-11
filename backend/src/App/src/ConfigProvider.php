@@ -2,6 +2,15 @@
 
 namespace App;
 
+use App\Core\Factory\DoctrineCacheFactory;
+use App\Core\Factory\DoctrineFactory;
+use App\Domain\Application\User\UserService;
+use App\Domain\Infrastructure\Container\Application\User\UserServiceFactory;
+use App\Http\Action\HomeAction;
+use App\Http\Action\HomeActionFactory;
+use Doctrine\Common\Cache\Cache;
+use Doctrine\ORM\EntityManager;
+
 /**
  * The configuration provider for the App module
  *
@@ -38,6 +47,10 @@ class ConfigProvider
             ],
             'factories'  => [
                 Action\HomePageAction::class => Action\HomePageFactory::class,
+                Cache::class => DoctrineCacheFactory::class,
+                EntityManager::class  => DoctrineFactory::class,
+                UserService::class => UserServiceFactory::class,
+                HomeAction::class => HomeActionFactory::class
             ],
         ];
     }
