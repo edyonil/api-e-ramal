@@ -1,8 +1,9 @@
 <?php
+
+require __DIR__ .'./../vendor/autoload.php';
+
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
-
-require 'vendor/autoload.php';
 
 $container = require 'container.php';
 

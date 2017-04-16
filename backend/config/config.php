@@ -11,6 +11,7 @@ $cacheConfig = [
 ];
 
 $aggregator = new ConfigAggregator([
+    \ContatoModulo\ConfigProvider::class,
     // Include cache configuration
     new ArrayProvider($cacheConfig),
 
