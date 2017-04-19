@@ -359,12 +359,15 @@ class ContatoServiceTest extends TestCase
 
         $input = [
             'page' => 1,
-            'limit' => 2
+            'limit' => 2,
+            'usuario' => null
         ];
 
         // Mock da classe que obtem o usuário autenticado e retorna uma
         // do tipo Usuario
         $autenticacao = $this->prophesize(AutenticacaoInterface::class);
+        $autenticacao->obterUsuarioAutenticado()
+            ->willReturn($usuario);
 
         // Mock do repositório
         $repository = $this->prophesize(RepositorioInterface::class);

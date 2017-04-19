@@ -11,7 +11,7 @@ namespace AppTest\Core\Factory;
 use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
 use Doctrine\Common\Cache\ArrayCache;
-use App\Core\Factory\FactoryDoctrineCache;
+use App\Core\Factory\DoctrineCacheFactory;
 
 /**
  * Class DoctrineFactoryCacheTest
@@ -25,11 +25,11 @@ class DoctrineCacheFactoryTest extends TestCase
     public function testDoctrineFactoryCache()
     {
         $container = $this->prophesize(ContainerInterface::class)
-                          ->reveal();
+            ->reveal();
 
         $this->assertInstanceOf(
             ArrayCache::class,
-                (new FactoryDoctrineCache())($container)
+            (new DoctrineCacheFactory())($container)
         );
     }
 }
