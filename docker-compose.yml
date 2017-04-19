@@ -13,7 +13,7 @@ php_e_ramal:
     build: .
     dockerfile: ./devops/php-fpm/Dockerfile
     environment:
-      XDEBUG_CONFIG: "remote_host=192.168.117.103"
+      XDEBUG_CONFIG: "remote_host=10.38.101.13"
       PHP_IDE_CONFIG: "serverName=eramal"
     container_name: php_e_ramal
     ports:
