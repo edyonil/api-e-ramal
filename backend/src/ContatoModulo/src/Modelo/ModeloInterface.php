@@ -11,5 +11,5 @@ namespace ContatoModulo\Modelo;
 
 interface ModeloInterface
 {
-
+    public function toArray() : array;
 }
