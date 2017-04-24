@@ -15,17 +15,21 @@ use ContatoModulo\Modelo\Contato;
  * @package  ContatoModulo\Aplicacao\Contato
  * @author   Edy <edyonil@gmail.com>
  * @license  GPL http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link     api.com
+ * @link     https://github.com/edyonil/api-e-ramal
  */
 class ContatoService
 {
 
     /**
+     * Repositorio
+     *
      * @var RepositorioInterface
      */
     private $repositorio;
 
     /**
+     * Autenticação
+     *
      * @var AutenticacaoInterface
      */
     private $autenticacao;
@@ -33,8 +37,8 @@ class ContatoService
     /**
      * ContatoService constructor.
      *
-     * @param RepositorioInterface  $repositorio
-     * @param AutenticacaoInterface $autenticacao
+     * @param RepositorioInterface  $repositorio  Classe de Repositorio
+     * @param AutenticacaoInterface $autenticacao Classe de autenticação
      */
     public function __construct(
         RepositorioInterface $repositorio,
@@ -46,7 +50,11 @@ class ContatoService
     }
 
     /**
-     * @param array $input
+     * Responsável por adicionar um contato
+     *
+     * @param array $input Campos que serão adicionados ao contato
+     *                     Deve ser enviado os seguintes campos
+     *                     nome, setor, ramalOuTelefone
      *
      * @return array
      */
@@ -65,8 +73,12 @@ class ContatoService
     }
 
     /**
-     * @param int   $id
-     * @param array $input
+     * Responsável por localizar e editar um contato
+     *
+     * @param int   $id    Identificado do registro que deve ser alterado
+     * @param array $input Campos que serão atualizados do contato
+     *                     Deve ser enviado os seguintes campos
+     *                     nome, setor, ramalOuTelefone
      *
      * @return array
      */
@@ -86,7 +98,9 @@ class ContatoService
     }
 
     /**
-     * @param int $id
+     * Responsável em localizar um contato
+     *
+     * @param int $id Identificado do registro a ser localizado
      *
      * @return array
      */
@@ -97,6 +111,7 @@ class ContatoService
     }
 
     /**
+     * Lista todos os contatos cadastros no sistema para o usuário
      * @param array $input
      *
      * @return array
@@ -104,6 +119,10 @@ class ContatoService
     public function listarContato(array $input) : array
     {
         $retorno = [];
+
+        $usuario = $this->autenticacao->obterUsuarioAutenticado();
+        $input['usuario'] = $usuario->getId();
+
         $contato = $this->repositorio->listar($input);
 
         foreach ($contato as $item) {
