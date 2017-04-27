@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          http://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="ContatoModulo\Modelo\Contato" table="contato">
+    <id name="id" type="integer" column="id">
+      <generator strategy="AUTO"/>
+    </id>
+
+    <field name="nome" column="nome" length="255" />
+    <field name="setor" column="setor" length="255" />
+
+    <field name="createdAt" type="datetime" column="created_at"
+           column-definition="timestamp default current_timestamp">
+    </field>
+    <field name="updatedAt" type="datetime" column="updated_at"
+           column-definition="timestamp"/>
+    <field name="deletedAt" type="datetime" column="deleted_at"
+           column-definition="timestamp"
+           nullable="true"/>
+
+    <many-to-one target-entity="ContatoModulo\Modelo\Usuario"
+                 field="usuario"
+                 inversed-by="listaContatos" />
+  </entity>
+</doctrine-mapping>

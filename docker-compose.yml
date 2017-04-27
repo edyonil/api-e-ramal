@@ -14,13 +14,16 @@ php_e_ramal:
     dockerfile: ./devops/php-fpm/Dockerfile
     environment:
       XDEBUG_CONFIG: "remote_host=10.38.101.25"
+      #XDEBUG_CONFIG: "remote_host=192.168.117.104"
       PHP_IDE_CONFIG: "serverName=eramal"
     container_name: php_e_ramal
     ports:
       - '9000:9000'
     volumes:
-        - ./backend:/var/www/e_ramal
-        - ./devops/php-fpm/php.ini:/usr/local/etc/php/conf.d/php.ini
+      - ./backend:/var/www/e_ramal
+      - ./devops/php-fpm/php.ini:/usr/local/etc/php/conf.d/php.ini
+    links:
+      - db_e_ramal
 web_e_ramal:
     container_name: web_e_ramal
     image: nginx:latest

@@ -6,7 +6,7 @@
  * Time: 19:24
  */
 
-namespace ContatoModulo\Infraestrutura\Repositorio;
+namespace ContatoModulo\Infraestrutura\Persistencia\Repositorio;
 
 use ContatoModulo\Modelo\ModeloInterface;
 

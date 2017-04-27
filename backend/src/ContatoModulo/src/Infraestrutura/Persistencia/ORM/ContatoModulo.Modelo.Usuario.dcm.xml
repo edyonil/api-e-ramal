@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          http://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="ContatoModulo\Modelo\Usuario" table="usuario">
+    <id name="id" type="integer" column="id">
+      <generator strategy="AUTO"/>
+    </id>
+    <field name="email" type="string" column="email" length="255"/>
+    <field name="ativo" type="boolean" column="ativo">
+      <options>
+        <option name="default">0</option>
+      </options>
+    </field>
+    <field name="primeiroAcesso" type="boolean" column="primeiro_acesso">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="password" type="string" column="password" length="255"/>
+    <field name="compartilharContatos" type="boolean" column="compartilhar_contatos">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="createdAt" type="datetime" column="created_at"
+           column-definition="timestamp default current_timestamp">
+    </field>
+    <field name="updatedAt" type="datetime" column="updated_at"
+           column-definition="timestamp"/>
+    <field name="deletedAt" type="datetime" column="deleted_at"
+           column-definition="timestamp"
+           nullable="true"/>
+    <one-to-many target-entity="ContatoModulo\Modelo\Contato"
+                 mapped-by="usuario"
+                 field="listaContato" />
+
+  </entity>
+</doctrine-mapping>
