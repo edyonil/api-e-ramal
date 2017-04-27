@@ -6,10 +6,10 @@
 
     <name>Doctrine Sandbox Migrations</name>
 
-    <migrations-namespace>\App\DoctrineMigrations</migrations-namespace>
+    <migrations-namespace>App\DoctrineMigrations</migrations-namespace>
 
     <table name="doctrine_migration_versions" />
 
-    <migrations-directory>migrations</migrations-directory>
+    <migrations-directory>DoctrineMigrations</migrations-directory>
 
 </doctrine-migrations>

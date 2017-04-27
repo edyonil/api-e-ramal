@@ -8,7 +8,6 @@
 
 namespace ContatoModulo\Aplicacao\Autenticacao;
 
-
 use ContatoModulo\Modelo\Usuario;
 
 interface AutenticacaoInterface

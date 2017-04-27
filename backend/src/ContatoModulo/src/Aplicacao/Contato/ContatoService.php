@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ContatoModulo\Aplicacao\Contato;
 
 use ContatoModulo\Aplicacao\Autenticacao\AutenticacaoInterface;
-use ContatoModulo\Infraestrutura\Repositorio\RepositorioInterface;
+use ContatoModulo\Infraestrutura\Persistencia\Repositorio\RepositorioInterface;
 use ContatoModulo\Modelo\Contato;
 
 /**
@@ -75,7 +75,7 @@ class ContatoService
     /**
      * Responsável por localizar e editar um contato
      *
-     * @param int   $id    Identificado do registro que deve ser alterado
+     * @param int   $id    Identificador do contato na lista
      * @param array $input Campos que serão atualizados do contato
      *                     Deve ser enviado os seguintes campos
      *                     nome, setor, ramalOuTelefone
@@ -100,7 +100,7 @@ class ContatoService
     /**
      * Responsável em localizar um contato
      *
-     * @param int $id Identificado do registro a ser localizado
+     * @param int $id Identificador do contato na lista
      *
      * @return array
      */
@@ -112,7 +112,8 @@ class ContatoService
 
     /**
      * Lista todos os contatos cadastros no sistema para o usuário
-     * @param array $input
+     *
+     * @param array $input Parametros para filtros da lista de contatos
      *
      * @return array
      */
@@ -134,7 +135,9 @@ class ContatoService
     }
 
     /**
-     * @param int $id
+     * Responsável por excluir contatos da lista
+     *
+     * @param int $id Identificador do contato na lista
      *
      * @return bool
      */

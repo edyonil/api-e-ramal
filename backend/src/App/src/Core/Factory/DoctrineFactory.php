@@ -2,12 +2,11 @@
 
 namespace App\Core\Factory;
 
-use Doctrine\Common\Annotations\AnnotationReader;
-use Doctrine\Common\Annotations\AnnotationRegistry;
+
 use Doctrine\Common\Cache\Cache;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
+use Doctrine\ORM\Mapping\Driver\XmlDriver;
 use Doctrine\ORM\Mapping\UnderscoreNamingStrategy;
 use Interop\Container\ContainerInterface;
 
@@ -26,6 +25,10 @@ class DoctrineFactory
         $underscoreNamingStrategy = (isset($config['doctrine']['orm']['underscore_naming_strategy'])) ?
             $config['doctrine']['orm']['underscore_naming_strategy'] : false;
         // Doctrine ORM
+
+        $migrationsNamespace = $config['doctrine']['orm']['migrations_namespace'] ??
+            'App\Migrations';
+
         $doctrine = new Configuration();
         $doctrine->setProxyDir($proxyDir);
         $doctrine->setProxyNamespace($proxyNamespace);
@@ -33,12 +36,8 @@ class DoctrineFactory
         if ($underscoreNamingStrategy) {
             $doctrine->setNamingStrategy(new UnderscoreNamingStrategy());
         }
-        // ORM mapping by Annotation
-        AnnotationRegistry::registerFile('vendor/doctrine/orm/lib/Doctrine/ORM/Mapping/Driver/DoctrineAnnotations.php');
-        $driver = new AnnotationDriver(
-            new AnnotationReader(),
-            $config['doctrine']['annotation']['metadata']
-        );
+
+        $driver = new XmlDriver($config['doctrine']['annotation']['metadata']);
         $doctrine->setMetadataDriverImpl($driver);
 
         // Cache

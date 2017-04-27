@@ -10,7 +10,7 @@ namespace AppTest\ContatoModulo\Aplicacao\Contato;
 
 use ContatoModulo\Aplicacao\Autenticacao\AutenticacaoInterface;
 use ContatoModulo\Aplicacao\Contato\ContatoService;
-use ContatoModulo\Infraestrutura\Repositorio\RepositorioInterface;
+use ContatoModulo\Infraestrutura\Persistencia\Repositorio\RepositorioInterface;
 use ContatoModulo\Modelo\Contato;
 use ContatoModulo\Modelo\Usuario;
 use PHPUnit\Framework\TestCase;
