@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace ContatoModulo\Modelo;
 
@@ -66,7 +67,9 @@ class Usuario implements ModeloInterface
      */
     private $deletedAt;
 
-
+    /**
+     * Usuario constructor.
+     */
     public function __construct()
     {
         $this->listaContato = new ArrayCollection();
@@ -81,7 +84,8 @@ class Usuario implements ModeloInterface
     }
 
     /**
-     * @param mixed $password
+     * @param $password
+     * @return $this
      */
     public function setPassword($password)
     {
@@ -104,6 +108,7 @@ class Usuario implements ModeloInterface
 
     /**
      * @param bool $primeiroAcesso
+     * @return $this
      */
     public function setPrimeiroAcesso(bool $primeiroAcesso)
     {
@@ -112,6 +117,10 @@ class Usuario implements ModeloInterface
         return $this;
     }
 
+    /**
+     * @param Contato $contato
+     * @return $this
+     */
     public function setListaContatos(Contato $contato)
     {
         $this->listaContato[] = $contato;
@@ -125,15 +134,15 @@ class Usuario implements ModeloInterface
     public function toArray(): array
     {
         return [
-            'id'                   => $this->getId(),
-            'nome'                 => $this->getNome(),
-            'email'                => $this->getEmail(),
-            'ativo'                => $this->ativo(),
-            'primeiroAcesso'       => $this->primeiroAcesso(),
+            'id' => $this->getId(),
+            'nome' => $this->getNome(),
+            'email' => $this->getEmail(),
+            'ativo' => $this->ativo(),
+            'primeiroAcesso' => $this->primeiroAcesso(),
             'compartilharContatos' => $this->getCompartilharContatos(),
-            'createdAt'            => $this->getCreatedAt(),
-            'updatedAt'            => $this->getUpdatedAt(),
-            'deletedAt'            => $this->getDeletedAt()
+            'createdAt' => $this->getCreatedAt(),
+            'updatedAt' => $this->getUpdatedAt(),
+            'deletedAt' => $this->getDeletedAt()
         ];
     }
 
@@ -154,7 +163,8 @@ class Usuario implements ModeloInterface
     }
 
     /**
-     * @param mixed $nome
+     * @param $nome
+     * @return $this
      */
     public function setNome($nome)
     {
@@ -172,7 +182,8 @@ class Usuario implements ModeloInterface
     }
 
     /**
-     * @param mixed $email
+     * @param $email
+     * @return $this
      */
     public function setEmail($email)
     {
@@ -206,7 +217,8 @@ class Usuario implements ModeloInterface
     }
 
     /**
-     * @param mixed $compartilharContatos
+     * @param $compartilharContatos
+     * @return $this
      */
     public function setCompartilharContatos($compartilharContatos)
     {
@@ -224,7 +236,8 @@ class Usuario implements ModeloInterface
     }
 
     /**
-     * @param mixed $createdAt
+     * @param $createdAt
+     * @return $this
      */
     public function setCreatedAt($createdAt)
     {
@@ -242,7 +255,8 @@ class Usuario implements ModeloInterface
     }
 
     /**
-     * @param mixed $updatedAt
+     * @param $updatedAt
+     * @return $this
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -260,7 +274,8 @@ class Usuario implements ModeloInterface
     }
 
     /**
-     * @param mixed $deletedAt
+     * @param $deletedAt
+     * @return $this
      */
     public function setDeletedAt($deletedAt)
     {
@@ -268,6 +283,4 @@ class Usuario implements ModeloInterface
 
         return $this;
     }
-
-
 }
