@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 /**
  * Created by PhpStorm.
  * User: ediaimoborges
@@ -17,20 +18,44 @@ namespace ContatoModulo\Modelo;
  */
 class Contato implements ModeloInterface
 {
+    /**
+     * @var int
+     */
     private $id;
 
+    /**
+     * @var string
+     */
     private $nome;
 
+    /**
+     * @var string
+     */
     private $setor;
 
+    /**
+     * @var string
+     */
     private $ramalOuTelefone;
 
+    /**
+     * @var Usuario
+     */
     private $usuario;
 
+    /**
+     * @var string
+     */
     private $createdAt;
 
+    /**
+     * @var string
+     */
     private $updatedAt;
 
+    /**
+     * @var string
+     */
     private $deletedAt;
 
     /**
@@ -50,7 +75,8 @@ class Contato implements ModeloInterface
     }
 
     /**
-     * @param mixed $nome
+     * @param $nome
+     * @return $this
      */
     public function setNome($nome)
     {
@@ -67,7 +93,8 @@ class Contato implements ModeloInterface
     }
 
     /**
-     * @param mixed $setor
+     * @param $setor
+     * @return $this
      */
     public function setSetor($setor)
     {
@@ -84,7 +111,8 @@ class Contato implements ModeloInterface
     }
 
     /**
-     * @param mixed $ramalOuTelefone
+     * @param $ramalOuTelefone
+     * @return $this
      */
     public function setRamalOuTelefone($ramalOuTelefone)
     {
@@ -102,9 +130,10 @@ class Contato implements ModeloInterface
     }
 
     /**
-     * @param mixed $usuario
+     * @param Usuario $usuario
+     * @return Contato
      */
-    public function setUsuario(Usuario $usuario) : Contato
+    public function setUsuario(Usuario $usuario): Contato
     {
         $this->usuario = $usuario;
 
@@ -120,7 +149,8 @@ class Contato implements ModeloInterface
     }
 
     /**
-     * @param mixed $createdAt
+     * @param $createdAt
+     * @return $this
      */
     public function setCreatedAt($createdAt)
     {
@@ -138,7 +168,8 @@ class Contato implements ModeloInterface
     }
 
     /**
-     * @param mixed $updatedAt
+     * @param $updatedAt
+     * @return $this
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -180,7 +211,7 @@ class Contato implements ModeloInterface
         return [
             'id' => $this->getId(),
             'nome' => $this->getNome(),
-            'setor' =>$this->getSetor(),
+            'setor' => $this->getSetor(),
             'ramalOuTelefone' => $this->getRamalOuTelefone(),
             'usuario' => $this->getUsuario()->toArray(),
             'createdAt' => $this->getCreatedAt(),
@@ -188,6 +219,4 @@ class Contato implements ModeloInterface
             'deletedAt' => $this->getDeletedAt()
         ];
     }
-
-
 }
