@@ -33,6 +33,7 @@ class AutenticacaoJWT implements TipoAutenticacaoInterface
       ];
 
       return ['token' => JWT::encode($tokenParam, $this->getChave())];
+
     }
 
     public function extrairDados(string $token) : \stdClass
