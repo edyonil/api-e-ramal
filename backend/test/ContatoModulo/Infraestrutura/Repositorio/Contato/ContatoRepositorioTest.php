@@ -29,11 +29,6 @@ class ContatoRepositorioTest extends AbstractRepositorioTest
         $this->assertInstanceOf(ContainerInterface::class, $this->container);
     }
 
-    public function testAdicionandoContato()
-    {
-
-    }
-
     private function repositorio()
     {
         $entityManager = $this->container->get(EntityManager::class);

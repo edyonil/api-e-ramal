@@ -30,3 +30,5 @@
 $app->get('/api/ping', App\Action\PingAction::class, 'api.ping');
 
 $app->get('/teste', App\Http\Action\HomeAction::class, 'teste');
+
+$app->get('/usuarios', ContatoModulo\Aplicacao\Acao\UsuarioAcao::class, 'usuarios');
