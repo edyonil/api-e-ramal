@@ -8,13 +8,16 @@
 
 namespace App\Domain\Application\User;
 
-
 use App\Domain\Infrastructure\Repository\UserRepository;
 
 class UserService
 {
     private $userRepository;
 
+    /**
+     * Construtor da classe
+     * @param UserRepository $userRepository [description]
+     */
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
