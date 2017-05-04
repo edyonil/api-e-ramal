@@ -8,9 +8,12 @@
 
 namespace ContatoModulo\Aplicacao\Autenticacao;
 
+use \ContatoModulo\Modelo\Usuario;
 
 interface TipoAutenticacaoInterface
 {
 
-    public function getToken() : array;
+    public function getToken(Usuario $usuario) : array;
+
+    public function extrairDados(string $token) : \stdClass;
 }

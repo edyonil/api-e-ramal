@@ -21,6 +21,7 @@ php_e_ramal:
     volumes:
       - ./backend:/var/www/e_ramal
       - ./devops/php-fpm/php.ini:/usr/local/etc/php/conf.d/php.ini
+      - ./Docs:/var/www/Docs
     links:
       - db_e_ramal
 web_e_ramal:
