@@ -136,4 +136,9 @@ class AutenticacaoServiceTest extends TestCase
         return $usuario;
     }
 
+    private function creiarUsuario()
+    {
+
+    }
+
 }

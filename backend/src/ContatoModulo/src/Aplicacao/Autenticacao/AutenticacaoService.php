@@ -48,7 +48,7 @@ class AutenticacaoService implements AutenticacaoInterface
 
         if (!$usuario->ativo()) {
             throw new UsuarioException(
-                'Usuário inativo.Entre em contato com administrador'
+                'Usuário inativo. Entre em contato com administrador'
             );
         };
 
