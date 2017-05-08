@@ -1,6 +1,10 @@
 <?php
+declare(strict_types=1);
 
 namespace ContatoModulo;
+
+use ContatoModulo\Aplicacao\Usuario\UsuarioServico;
+use ContatoModulo\Infraestrutura\Container\Aplicacao\Usuario\UsuarioServicoFactory;
 
 /**
  * The configuration provider for the ContatoModulo module
@@ -21,7 +25,7 @@ class ConfigProvider
     {
         return [
             'dependencies' => $this->getDependencies(),
-            'templates'    => $this->getTemplates(),
+            // 'templates'    => $this->getTemplates(),
         ];
     }
 
@@ -36,6 +40,7 @@ class ConfigProvider
             'invokables' => [
             ],
             'factories'  => [
+                UsuarioServico::class => UsuarioServicoFactory::class,
             ],
         ];
     }

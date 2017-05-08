@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace ContatoModulo\Aplicacao\Autenticacao;
 
@@ -6,7 +7,9 @@ use \ContatoModulo\Modelo\Usuario;
 use \Firebase\JWT\JWT;
 
 /**
+ * Class AutenticacaoJWT
  *
+ * @package ContatoModulo\Aplicacao\Autenticacao
  */
 class AutenticacaoJWT implements TipoAutenticacaoInterface
 {
@@ -15,8 +18,9 @@ class AutenticacaoJWT implements TipoAutenticacaoInterface
 
     private $criptografia = 'HS256';
 
-    public function getToken(Usuario $usuario) : array
+    public function getToken(Usuario $usuario): array
     {
+<<<<<<< HEAD
       $tempo = time();
       $expire = $tempo + $this->getExpiracao(); // tempo de expiracao do token
 
@@ -32,27 +36,45 @@ class AutenticacaoJWT implements TipoAutenticacaoInterface
 
       return ['token' => JWT::encode($tokenParam, $this->getChave())];
 
+=======
+        $tempo = time();
+        $expire = $tempo + $this->getExpiracao(); // tempo de expiracao do token
+
+        $tokenParam = [
+            'iat' => $tempo,            // timestamp de geracao do token
+            'exp' => $expire,              // expiracao do token
+            'nbf' => $tempo - 1,        // token nao eh valido Antes de
+            'data' => [
+                'id' => $usuario->getId(),
+                'email' => $usuario->getEmail()
+            ], // Dados do usuario logado
+        ];
+
+        return ['token' => JWT::encode($tokenParam, $this->getChave())];
+>>>>>>> 8338ff544f1b4bdef6b2c3a5e08f272363ef8ebd
     }
 
-    public function extrairDados(string $token) : \stdClass
+    public function extrairDados(string $token): \stdClass
     {
         return JWT::decode($token, $this->getChave(), [$this->getCriptografia()]);
     }
 
-    public function setChave(string $chave) : this
+    public function setChave(string $chave): AutenticacaoJWT
     {
         $this->chave = $chave;
+
         return $this;
     }
 
-    public function getChave() : string
+    public function getChave(): string
     {
         return $this->chave;
     }
 
-    public function setExpiracao(int $expiracao) : this
+    public function setExpiracao(int $expiracao): AutenticacaoJWT
     {
         $this->expiracao = $expiracao;
+
         return $this;
     }
 
@@ -64,6 +86,7 @@ class AutenticacaoJWT implements TipoAutenticacaoInterface
     public function setCriptografia(string $criptografia)
     {
         $this->criptografia = $criptografia;
+
         return $this;
     }
 
@@ -71,5 +94,4 @@ class AutenticacaoJWT implements TipoAutenticacaoInterface
     {
         return $this->criptografia;
     }
-
 }

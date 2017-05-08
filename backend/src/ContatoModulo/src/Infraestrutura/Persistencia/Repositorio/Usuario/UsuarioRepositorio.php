@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace ContatoModulo\Infraestrutura\Persistencia\Usuario\Repositorio;
+namespace ContatoModulo\Infraestrutura\Persistencia\Repositorio\Usuario;
 
 use ContatoModulo\Infraestrutura\Persistencia\Repositorio\RepositorioInterface;
 use ContatoModulo\Modelo\Usuario;
@@ -20,7 +20,19 @@ class UsuarioRepositorio implements RepositorioInterface
      */
     private $entityManager;
 
+    /**
+     * @var Usuario $modelo
+     */
     private $modelo;
+
+    private $fields = [
+        'email',
+        'nome',
+        'password',
+        'ativo',
+        'primeiroAcesso',
+        '$compartilharContatos',
+    ];
 
     /**
      * ContatoRepositorio constructor.
@@ -64,11 +76,24 @@ class UsuarioRepositorio implements RepositorioInterface
 
     public function excluir(ModeloInterface $modelo): bool
     {
-        // TODO: Implement excluir() method.
+        $this->entityManager->remove($modelo);
+        $this->entityManager->flush();
+
+        return true;
     }
 
     public function listar(array $parametros): array
     {
-        // TODO: Implement listar() method.
+        $filtros = [];
+
+        if (!empty($parametros)) {
+            foreach ($this->fields as $f) {
+                if (isset($parametros[$f])) {
+                    $filtros[$f] = $parametros[$f];
+                }
+            }
+        }
+
+        return $this->entityManager->findBy($filtros);
     }
 }

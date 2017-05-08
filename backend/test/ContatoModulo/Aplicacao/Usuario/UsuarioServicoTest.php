@@ -4,15 +4,15 @@ declare(strict_types=1);
 use ContatoModulo\Infraestrutura\Persistencia\Repositorio\RepositorioInterface;
 use ContatoModulo\Modelo\Usuario;
 use PHPUnit\Framework\TestCase;
-use ContatoModulo\Aplicacao\Usuario\UsuarioService;
+use ContatoModulo\Aplicacao\Usuario\UsuarioServico;
 
 /**
- * Class UsuarioServiceTest
+ * Class UsuarioServicoTest
  *
  * @package AppTest\ContatoModulo\Aplicacao\Contato
  * @group ContatoModulo
  */
-class UsuarioServiceTest extends TestCase
+class UsuarioServicoTest extends TestCase
 {
     /**
      * Testa o cadastro de usuário
@@ -54,7 +54,7 @@ class UsuarioServiceTest extends TestCase
         $repositorio = $this->prophesize(RepositorioInterface::class);
         $repositorio->adicionar($inputRepo)->willReturn($outputRepo);
 
-        $usuarioServico = new UsuarioService($repositorio->reveal());
+        $usuarioServico = new UsuarioServico($repositorio->reveal());
 
         $resultado = $usuarioServico->adicionarUsuario($input);
 
@@ -108,7 +108,7 @@ class UsuarioServiceTest extends TestCase
         $repositorio->encontrar($id)->willReturn($outputRepo);
         $repositorio->atualizar($inputRepo)->willReturn($outputRepoEditar);
 
-        $usuarioServico = new UsuarioService($repositorio->reveal());
+        $usuarioServico = new UsuarioServico($repositorio->reveal());
 
         $resultado = $usuarioServico->editarUsuario($id, $input);
 
@@ -150,9 +150,9 @@ class UsuarioServiceTest extends TestCase
 
         $repository->encontrar($id)->willReturn($outputRepo);
 
-        $usuarioService = new UsuarioService($repository->reveal());
+        $usuarioServico = new UsuarioServico($repository->reveal());
 
-        $resultado = $usuarioService->localizarUsuario($id);
+        $resultado = $usuarioServico->localizarUsuario($id);
 
         $this->assertEquals($resultado, $output);
     }
@@ -225,9 +225,9 @@ class UsuarioServiceTest extends TestCase
 
         $repository->listar($input)->willReturn($outputRepo);
 
-        $usuarioService = new UsuarioService($repository->reveal());
+        $usuarioServico = new UsuarioServico($repository->reveal());
 
-        $resultado = $usuarioService->listarUsuario($input);
+        $resultado = $usuarioServico->listarUsuario($input);
 
         $this->assertEquals($resultado['itens'], $output);
         $this->assertCount(3, $resultado['itens']);
@@ -270,7 +270,7 @@ class UsuarioServiceTest extends TestCase
 
         $repository->excluir($outputRepo)->willReturn(true)->shouldBeCalled();
 
-        $usuarioServico = new UsuarioService($repository->reveal());
+        $usuarioServico = new UsuarioServico($repository->reveal());
 
         $this->assertTrue($usuarioServico->excluirUsuario($id));
     }

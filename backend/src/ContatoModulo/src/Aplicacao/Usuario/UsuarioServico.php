@@ -7,7 +7,7 @@ use ContatoModulo\Infraestrutura\Persistencia\Repositorio\RepositorioInterface;
 use ContatoModulo\Modelo\Usuario;
 
 /**
- * Class UsuarioService
+ * Class UsuarioServico
  *
  * @category Usuario
  * @package  ContatoModulo\Aplicacao\Contato
@@ -15,7 +15,7 @@ use ContatoModulo\Modelo\Usuario;
  * @license  GPL http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link     https://github.com/edyonil/api-e-ramal
  */
-class UsuarioService
+class UsuarioServico
 {
     /**
      * @var RepositorioInterface
@@ -23,7 +23,7 @@ class UsuarioService
     private $repositorio;
 
     /**
-     * UsuarioService constructor.
+     * UsuarioServico constructor.
      *
      * @param RepositorioInterface $repositorio
      */

@@ -10,7 +10,6 @@ namespace AppTest\ContatoModulo\Aplicacao\Autenticacao;
 
 use ContatoModulo\Aplicacao\Autenticacao\AutenticacaoService;
 use ContatoModulo\Aplicacao\Autenticacao\TipoAutenticacaoInterface;
-use ContatoModulo\Aplicacao\Excecao\UsuarioException;
 use ContatoModulo\Infraestrutura\Persistencia\Repositorio\Usuario\UsuarioAutenticacaoRepositorio;
 use ContatoModulo\Modelo\Usuario;
 use PHPUnit\Framework\TestCase;
@@ -61,7 +60,7 @@ class AutenticacaoServiceTest extends TestCase
     }
 
     /**
-     * @expectedException ContatoModulo\Aplicacao\Excecao\UsuarioException
+     * @expectedException \ContatoModulo\Aplicacao\Excecao\UsuarioException
      */
     public function testLoginComUsuarioInativo()
     {
@@ -83,7 +82,7 @@ class AutenticacaoServiceTest extends TestCase
     }
 
     /**
-     * @expectedException ContatoModulo\Aplicacao\Excecao\UsuarioException
+     * @expectedException \ContatoModulo\Aplicacao\Excecao\UsuarioException
      */
     public function testLoginComUsuarioOuSenhaInvalido()
     {
@@ -93,7 +92,7 @@ class AutenticacaoServiceTest extends TestCase
         $repositorio = $this->prophesize(UsuarioAutenticacaoRepositorio::class);
 
         $repositorio->getUsuario($email, $password)
-            ->willReturn(null)
+            ->willReturn(new Usuario())
             ->shouldBeCalled();
 
         $tipo = $this->prophesize(TipoAutenticacaoInterface::class);
@@ -135,10 +134,13 @@ class AutenticacaoServiceTest extends TestCase
 
         return $usuario;
     }
+<<<<<<< HEAD
 
     private function creiarUsuario()
     {
 
     }
 
+=======
+>>>>>>> 8338ff544f1b4bdef6b2c3a5e08f272363ef8ebd
 }

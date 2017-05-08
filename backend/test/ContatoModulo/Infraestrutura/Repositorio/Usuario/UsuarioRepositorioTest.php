@@ -4,7 +4,7 @@ declare(strict_types=1);
 use AppTest\ContatoModulo\Infraestrutura\Repositorio\AbstractRepositorioTest;
 use Doctrine\ORM\EntityManager;
 use Psr\Container\ContainerInterface;
-use ContatoModulo\Infraestrutura\Persistencia\Usuario\Repositorio\UsuarioRepositorio;
+use ContatoModulo\Infraestrutura\Persistencia\Repositorio\Usuario\UsuarioRepositorio;
 
 /**
  * Class UsuarioRepositorioTest
