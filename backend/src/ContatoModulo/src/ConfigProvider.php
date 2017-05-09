@@ -3,6 +3,12 @@ declare(strict_types=1);
 
 namespace ContatoModulo;
 
+use ContatoModulo\Aplicacao\Http\Acao\AtualizarUsuarioAcao;
+use ContatoModulo\Aplicacao\Http\Acao\CadastrarUsuarioAcao;
+use ContatoModulo\Aplicacao\Http\Acao\ExcluirUsuarioAcao;
+use ContatoModulo\Aplicacao\Http\Acao\ListarUsuarioAcao;
+use ContatoModulo\Aplicacao\Http\Acao\ObterUsuarioAcao;
+use ContatoModulo\Aplicacao\Http\Acao\UsuarioAcaoFactory;
 use ContatoModulo\Aplicacao\Usuario\UsuarioServico;
 use ContatoModulo\Infraestrutura\Container\Aplicacao\Usuario\UsuarioServicoFactory;
 
@@ -40,7 +46,13 @@ class ConfigProvider
             'invokables' => [
             ],
             'factories'  => [
+                // Usuário
                 UsuarioServico::class => UsuarioServicoFactory::class,
+                ListarUsuarioAcao::class => UsuarioAcaoFactory::class,
+                ObterUsuarioAcao::class => UsuarioAcaoFactory::class,
+                CadastrarUsuarioAcao::class => UsuarioAcaoFactory::class,
+                AtualizarUsuarioAcao::class => UsuarioAcaoFactory::class,
+                ExcluirUsuarioAcao::class => UsuarioAcaoFactory::class,
             ],
         ];
     }

@@ -9,8 +9,9 @@
 namespace AppTest\ContatoModulo\Infraestrutura\Repositorio\Contato;
 
 use AppTest\ContatoModulo\Infraestrutura\Repositorio\AbstractRepositorio;
+use ContatoModulo\Aplicacao\Usuario\UsuarioServico;
 use ContatoModulo\Infraestrutura\Persistencia\Contato\Repositorio\ContatoRepositorio;
-
+use ContatoModulo\Infraestrutura\Persistencia\Repositorio\Usuario\UsuarioRepositorio;
 use Doctrine\ORM\EntityManager;
 use Psr\Container\ContainerInterface;
 
