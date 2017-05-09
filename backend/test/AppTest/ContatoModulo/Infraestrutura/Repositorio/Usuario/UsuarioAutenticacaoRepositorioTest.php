@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Test\ContatoModulo\Infraestrutura\Repositorio\Usuario;
+namespace AppTest\ContatoModulo\Infraestrutura\Repositorio\Usuario;
 
-use AppTest\ContatoModulo\Infraestrutura\Repositorio\AbstractRepositorioTest;
+use AppTest\ContatoModulo\Infraestrutura\Repositorio\AbstractRepositorio;
 use ContatoModulo\Infraestrutura\Persistencia\Repositorio\Usuario\UsuarioAutenticacaoRepositorio;
 use ContatoModulo\Modelo\Usuario;
 use Doctrine\ORM\EntityManager;
 
-class UsuarioAutenticacaoRepositorioTest extends AbstractRepositorioTest
+class UsuarioAutenticacaoRepositorioTest extends AbstractRepositorio
 {
     public function testObterUsuarioAPartirDoLoginESenha()
     {

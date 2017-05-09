@@ -20,23 +20,6 @@ class AutenticacaoJWT implements TipoAutenticacaoInterface
 
     public function getToken(Usuario $usuario): array
     {
-<<<<<<< HEAD
-      $tempo = time();
-      $expire = $tempo + $this->getExpiracao(); // tempo de expiracao do token
-
-      $tokenParam = [
-          'iat'  => $tempo,            // timestamp de geracao do token
-          'exp'  => $expire,              // expiracao do token
-          'nbf'  => $tempo - 1,        // token nao eh valido Antes de
-          'data' => [
-            'id' => $usuario->getId(),
-            'email' => $usuario->getEmail()
-          ], // Dados do usuario logado
-      ];
-
-      return ['token' => JWT::encode($tokenParam, $this->getChave())];
-
-=======
         $tempo = time();
         $expire = $tempo + $this->getExpiracao(); // tempo de expiracao do token
 
@@ -51,7 +34,7 @@ class AutenticacaoJWT implements TipoAutenticacaoInterface
         ];
 
         return ['token' => JWT::encode($tokenParam, $this->getChave())];
->>>>>>> 8338ff544f1b4bdef6b2c3a5e08f272363ef8ebd
+
     }
 
     public function extrairDados(string $token): \stdClass

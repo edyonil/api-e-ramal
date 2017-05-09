@@ -5,6 +5,7 @@ namespace ContatoModulo\Infraestrutura\Persistencia\Repositorio\Usuario;
 
 use ContatoModulo\Modelo\Usuario;
 use Doctrine\ORM\EntityManager;
+use ContatoModulo\Aplicacao\Excecao\UsuarioException;
 
 /**
  * Class UsuarioAutenticacaoRepositorio
@@ -37,9 +38,16 @@ class UsuarioAutenticacaoRepositorio
      */
     public function getUsuario($email, $password): Usuario
     {
-        return $this->em->findBy([
-            'email' => $email,
-            'password' => $password,
-        ]);
+        $logado = $this->em->getRepository(Usuario::class)
+                    ->findOneBy([
+                            'email' => $email,
+                            'password' => $password,
+                        ]
+                    );
+
+        if (is_null($logado)) {
+            throw new UsuarioException("Usuário não encontrado");
+
+        }
     }
 }

@@ -1,17 +1,18 @@
 <?php
+declare(strict_types=1);
 
-namespace AppTest\ContatoModulo\Aplicacao;
+namespace AppTest\ContatoModulo\Autenticacao\Aplicacao;
 
+use AppTest\ContatoModulo\Infraestrutura\Repositorio\AbstractRepositorio;
 use ContatoModulo\Aplicacao\Autenticacao\AutenticacaoService;
 use ContatoModulo\Aplicacao\Autenticacao\AutenticacaoJWT;
-use ContatoModulo\Aplicacao\Usuario\UsuarioService;
+use ContatoModulo\Aplicacao\Usuario\UsuarioServico;
 use ContatoModulo\Infraestrutura\Persistencia\Repositorio\Usuario\UsuarioAutenticacaoRepositorio;
 /**
- * @group Autenticacao/Obter
+ * @group VerificaLogin
  */
-class VerificaUsuarioLogadoTest extends AbstractRepositorioTest
+class VerificaUsuarioLogadoTest extends AbstractRepositorio
 {
-
 
     public $usuario;
 

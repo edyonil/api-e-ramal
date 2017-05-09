@@ -8,7 +8,7 @@
 
 namespace AppTest\ContatoModulo\Infraestrutura\Repositorio\Contato;
 
-use AppTest\ContatoModulo\Infraestrutura\Repositorio\AbstractRepositorioTest;
+use AppTest\ContatoModulo\Infraestrutura\Repositorio\AbstractRepositorio;
 use ContatoModulo\Infraestrutura\Persistencia\Contato\Repositorio\ContatoRepositorio;
 
 use Doctrine\ORM\EntityManager;
@@ -21,7 +21,7 @@ use Psr\Container\ContainerInterface;
  *
  * @group ModuloContato/Repositorio
  */
-class ContatoRepositorioTest extends AbstractRepositorioTest
+class ContatoRepositorioTest extends AbstractRepositorio
 {
 
     public function testAvaliaSeFuncionaContainer()
