@@ -24,9 +24,40 @@ class VerificaUsuarioLogadoTest extends AbstractRepositorio
         self::criarUmUsuario();
     }
 
-    public static function tearDownAfterClass()
+    private function criarUmUsuario()
     {
-        self::deleteUsuario();
+        $servico = self::obterContainer(UsuarioServico::class);
+
+        self::$usuario = $servico->adicionarUsuario(self::data());
+    }
+
+    private function data()
+    {
+        return [
+            'compartilharContatos' => true,
+            'email' => 'edyonil@local.com',
+            'password' => 1234567,
+            'nome' => 'Edy Borges'
+        ];
+    }
+
+    private function gerarToken()
+    {
+        $jwtToken = new AutenticacaoJWT();
+        $usuario = self::obterUsuarioBanco();
+        $token = $jwtToken->getToken($usuario);
+
+        $tokenArray = explode('.', $token['token']);
+
+        return $token['token'];
+    }
+
+    private function obterUsuarioBanco()
+    {
+        $em = self::obterContainer(EntityManager::class);
+        $repositorio = new UsuarioRepositorio($em);
+
+        return $repositorio->encontrar(self::$usuario['id']);
     }
 
     public function testObterUsuarioLogado()
@@ -42,30 +73,15 @@ class VerificaUsuarioLogadoTest extends AbstractRepositorio
         $this->assertInstanceOf(Usuario::class, $usuario);
     }
 
-    private function gerarToken()
-    {
-        $jwtToken = new AutenticacaoJWT();
-        $usuario = self::obterUsuarioBanco();
-        $token = $jwtToken->getToken($usuario);
-
-        $tokenArray = explode('.', $token['token']);
-
-        return $token['token'];
-    }
-
-    private function criarUmUsuario()
-    {
-        $servico = self::obterContainer(UsuarioServico::class);
-
-        self::$usuario = $servico->adicionarUsuario(self::data());
-    }
-
-    private function obterUsuarioBanco()
+    private function repositorio()
     {
         $em = self::obterContainer(EntityManager::class);
-        $repositorio = new UsuarioRepositorio($em);
+        return new UsuarioAutenticacaoRepositorio($em);
+    }
 
-        return $repositorio->encontrar(self::$usuario['id']);
+    public static function tearDownAfterClass()
+    {
+        self::deleteUsuario();
     }
 
     private function deleteUsuario()
@@ -73,21 +89,5 @@ class VerificaUsuarioLogadoTest extends AbstractRepositorio
         $servico = self::obterContainer(UsuarioServico::class);
 
         $servico->excluirUsuario(self::$usuario['id']);
-    }
-
-    private function data()
-    {
-        return [
-            'compartilharContatos' => true,
-            'email' => 'edyonil@local.com',
-            'password' => 1234567,
-            'nome' => 'Edy Borges'
-        ];
-    }
-
-    private function repositorio()
-    {
-        $em = self::obterContainer(EntityManager::class);
-        return new UsuarioAutenticacaoRepositorio($em);
     }
 }

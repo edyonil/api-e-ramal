@@ -23,6 +23,25 @@ use Psr\Container\ContainerInterface;
  */
 class ContatoRepositorioTest extends AbstractRepositorio
 {
+    public static function setUpBeforeClass()
+    {
+        self::criarUmUsuario();
+    }
+
+    public static function tearDownAfterClass()
+    {
+        self::deleteUsuario();
+    }
+
+    private function data()
+    {
+        return [
+            'compartilharContatos' => true,
+            'email' => 'edyonil@local.com',
+            'password' => 1234567,
+            'nome' => 'Edy Borges'
+        ];
+    }
 
     public function testAvaliaSeFuncionaContainer()
     {
@@ -33,5 +52,20 @@ class ContatoRepositorioTest extends AbstractRepositorio
     {
         $entityManager = $this->container->get(EntityManager::class);
         return new ContatoRepositorio($entityManager);
+    }
+
+    private function obterUsuarioBanco()
+    {
+        $em = self::obterContainer(EntityManager::class);
+        $repositorio = new UsuarioRepositorio($em);
+
+        return $repositorio->encontrar(self::$usuario['id']);
+    }
+
+    private function criarUmUsuario()
+    {
+        $servico = self::obterContainer(UsuarioServico::class);
+
+        self::$usuario = $servico->adicionarUsuario(self::data());
     }
 }
