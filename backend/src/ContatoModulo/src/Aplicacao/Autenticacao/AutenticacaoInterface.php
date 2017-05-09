@@ -12,5 +12,5 @@ use ContatoModulo\Modelo\Usuario;
 
 interface AutenticacaoInterface
 {
-    public function obterUsuarioAutenticado(): Usuario;
+    public function obterUsuarioAutenticado(string $token): Usuario;
 }

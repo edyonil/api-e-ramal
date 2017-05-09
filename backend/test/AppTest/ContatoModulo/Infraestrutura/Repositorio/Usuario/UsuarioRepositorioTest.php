@@ -15,10 +15,6 @@ use ContatoModulo\Infraestrutura\Persistencia\Repositorio\Usuario\UsuarioReposit
  */
 class UsuarioRepositorioTest extends AbstractRepositorio
 {
-    public function testAvaliaSeFuncionaContainer()
-    {
-        $this->assertInstanceOf(ContainerInterface::class, $this->container);
-    }
 
     public function testVerificaSeEntityManagerEstaFuncionando()
     {
@@ -29,7 +25,7 @@ class UsuarioRepositorioTest extends AbstractRepositorio
 
     private function repositorio()
     {
-        $entityManager = $this->container->get(EntityManager::class);
+        $entityManager = self::obterContainer(EntityManager::class);
 
         return new UsuarioRepositorio($entityManager);
     }

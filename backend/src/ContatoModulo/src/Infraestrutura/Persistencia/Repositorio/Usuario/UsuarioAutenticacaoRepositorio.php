@@ -12,23 +12,8 @@ use ContatoModulo\Aplicacao\Excecao\UsuarioException;
  *
  * @package ContatoModulo\Infraestrutura\Persistencia\Repositorio\Usuario
  */
-class UsuarioAutenticacaoRepositorio
+class UsuarioAutenticacaoRepositorio extends UsuarioRepositorio
 {
-    /**
-     * @var EntityManager
-     */
-    private $em;
-
-    /**
-     * UsuarioAutenticacaoRepositorio constructor.
-     *
-     * @param EntityManager $em
-     */
-    public function __construct(EntityManager $em)
-    {
-        $this->em = $em;
-    }
-
     /**
      * Obtém o usuário a partir do login e senha
      *
@@ -38,10 +23,10 @@ class UsuarioAutenticacaoRepositorio
      */
     public function getUsuario($email, $password): Usuario
     {
-        $logado = $this->em->getRepository(Usuario::class)
+        $logado = $this->entityManager->getRepository(Usuario::class)
                     ->findOneBy([
                             'email' => $email,
-                            'password' => $password,
+                            'password' => $password
                         ]
                     );
 

@@ -26,7 +26,7 @@ class ContatoRepositorioTest extends AbstractRepositorio
 
     public function testAvaliaSeFuncionaContainer()
     {
-        $this->assertInstanceOf(ContainerInterface::class, $this->container);
+        $this->assertInstanceOf(ContainerInterface::class, self::$container);
     }
 
     private function repositorio()

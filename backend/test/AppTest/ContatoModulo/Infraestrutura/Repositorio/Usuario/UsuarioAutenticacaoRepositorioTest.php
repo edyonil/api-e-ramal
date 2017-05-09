@@ -26,7 +26,8 @@ class UsuarioAutenticacaoRepositorioTest extends AbstractRepositorio
             ->setPrimeiroAcesso(true)
             ->setUpdatedAt('2017-05-03 00:00:00');
 
-        $repositorio = new UsuarioAutenticacaoRepositorio($this->container->get(EntityManager::class));
+        $em = self::obterContainer(EntityManager::class);
+        $repositorio = new UsuarioAutenticacaoRepositorio($em);
         $usuario = $repositorio->getUsuario($email, $senha);
 
         $this->assertEquals($usuario, $outputRepo);

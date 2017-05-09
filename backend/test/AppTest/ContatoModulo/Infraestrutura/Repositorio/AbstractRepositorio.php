@@ -9,7 +9,7 @@ use \PHPUnit\Framework\TestCase;
  */
 abstract class AbstractRepositorio extends TestCase
 {
-    protected $container;
+    protected static $container;
 
     public function __construct($name = null, array $data = [], $dataName = '')
     {
@@ -17,6 +17,11 @@ abstract class AbstractRepositorio extends TestCase
 
         $container = require __DIR__ .'/../../../../../config/container.php';
 
-        $this->container = $container;
+        self::$container = $container;
+    }
+
+    public static function obterContainer($classe)
+    {
+        return self::$container->get($classe);
     }
 }

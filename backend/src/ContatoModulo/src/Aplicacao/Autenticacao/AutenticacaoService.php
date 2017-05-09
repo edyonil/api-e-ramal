@@ -31,9 +31,12 @@ class AutenticacaoService implements AutenticacaoInterface
         $this->usuarioAutenticacaoRepositorio = $usuarioAutenticacaoRepositorio;
     }
 
-    public function obterUsuarioAutenticado(): Usuario
+    public function obterUsuarioAutenticado(string $token): Usuario
     {
-        // TODO: Implement obterUsuarioAutenticado() method.
+        $dadosUsuario = $this->tipoAutenticacao->extrairDados($token);
+
+        return $this->usuarioAutenticacaoRepositorio
+        ->encontrar($dadosUsuario->data->id);
     }
 
     public function login(string $email, string $password): array

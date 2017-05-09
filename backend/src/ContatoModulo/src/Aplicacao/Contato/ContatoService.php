@@ -62,10 +62,11 @@ class ContatoService
     {
 
         $contato = new Contato();
+        $usuario = $this->autenticacao->obterUsuarioAutenticado($input['token']);
         $contato->setNome($input['nome'])
             ->setSetor($input['setor'])
             ->setRamalOuTelefone($input['ramalOuTelefone'])
-            ->setUsuario($this->autenticacao->obterUsuarioAutenticado());
+            ->setUsuario($usuario);
 
         $contato = $this->repositorio->adicionar($contato);
 
@@ -87,10 +88,12 @@ class ContatoService
 
         $contato = $this->repositorio->encontrar($id);
 
+        $usuario = $this->autenticacao->obterUsuarioAutenticado($input['token']);
+
         $contato->setNome($input['nome'])
             ->setSetor($input['setor'])
             ->setRamalOuTelefone($input['ramalOuTelefone'])
-            ->setUsuario($this->autenticacao->obterUsuarioAutenticado());
+            ->setUsuario($usuario);
 
         $contato = $this->repositorio->atualizar($contato);
 
@@ -121,7 +124,7 @@ class ContatoService
     {
         $retorno = [];
 
-        $usuario = $this->autenticacao->obterUsuarioAutenticado();
+        $usuario = $this->autenticacao->obterUsuarioAutenticado($input['token']);
         $input['usuario'] = $usuario->getId();
 
         $contato = $this->repositorio->listar($input);

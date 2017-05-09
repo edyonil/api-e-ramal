@@ -18,7 +18,7 @@ class UsuarioRepositorio implements RepositorioInterface
     /**
      * @var EntityManager
      */
-    private $entityManager;
+    protected $entityManager;
 
     /**
      * @var Usuario $modelo

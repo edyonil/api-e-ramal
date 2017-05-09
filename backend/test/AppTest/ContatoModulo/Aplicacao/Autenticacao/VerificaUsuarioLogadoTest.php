@@ -8,58 +8,71 @@ use ContatoModulo\Aplicacao\Autenticacao\AutenticacaoService;
 use ContatoModulo\Aplicacao\Autenticacao\AutenticacaoJWT;
 use ContatoModulo\Aplicacao\Usuario\UsuarioServico;
 use ContatoModulo\Infraestrutura\Persistencia\Repositorio\Usuario\UsuarioAutenticacaoRepositorio;
+use Doctrine\ORM\EntityManager;
+use ContatoModulo\Infraestrutura\Persistencia\Repositorio\Usuario\UsuarioRepositorio;
+use ContatoModulo\Modelo\Usuario;
 /**
  * @group VerificaLogin
  */
 class VerificaUsuarioLogadoTest extends AbstractRepositorio
 {
 
-    public $usuario;
+    public static $usuario;
 
-    public function setUp()
+    public static function setUpBeforeClass()
     {
-        $this->criarUmUsuario();
+        self::criarUmUsuario();
     }
 
-    public function tearDown()
+    public static function tearDownAfterClass()
     {
-        $this->deleteUsuario();
+        self::deleteUsuario();
+    }
+
+    public function testObterUsuarioLogado()
+    {
+        $token = $this->gerarToken();
+        $autenticacao = new AutenticacaoService(
+            new AutenticacaoJWT(),
+            $this->repositorio()
+        );
+
+        $usuario = $autenticacao->obterUsuarioAutenticado($token);
+
+        $this->assertInstanceOf(Usuario::class, $usuario);
     }
 
     private function gerarToken()
     {
         $jwtToken = new AutenticacaoJWT();
-        $token = $jwtToken->getToken($this->usuario);
+        $usuario = self::obterUsuarioBanco();
+        $token = $jwtToken->getToken($usuario);
 
         $tokenArray = explode('.', $token['token']);
 
         return $token['token'];
     }
 
-    /**
-     * @depends gerarToken
-     */
-    public function testObterUsuarioLogado($token)
-    {
-        $token = $this->gerarToken();
-        // $autenticacao = new AutenticacaoService(
-        //     new AutenticacaoJWT(),
-        //     $this->mockRepositorio()->
-        // );
-    }
-
     private function criarUmUsuario()
     {
-        $servico = $this->container->get(UsuarioService::class);
+        $servico = self::obterContainer(UsuarioServico::class);
 
-        $this->usuario = $servico->adicionarUsuario($this->data());
+        self::$usuario = $servico->adicionarUsuario(self::data());
+    }
+
+    private function obterUsuarioBanco()
+    {
+        $em = self::obterContainer(EntityManager::class);
+        $repositorio = new UsuarioRepositorio($em);
+
+        return $repositorio->encontrar(self::$usuario['id']);
     }
 
     private function deleteUsuario()
     {
-        $servico = $this->container->get(UsuarioService::class);
+        $servico = self::obterContainer(UsuarioServico::class);
 
-        $servico->excluirUsuario($this->usuario['id']);
+        $servico->excluirUsuario(self::$usuario['id']);
     }
 
     private function data()
@@ -72,12 +85,9 @@ class VerificaUsuarioLogadoTest extends AbstractRepositorio
         ];
     }
 
-    private function mockRepositorio()
+    private function repositorio()
     {
-        $repositorio = $this->prophesize(UsuarioAutenticacaoRepositorio::class);
-
-        return $repositorio->getUsuario($email, $password)
-            ->willReturn($this->usuario())
-            ->shouldBeCalled();
+        $em = self::obterContainer(EntityManager::class);
+        return new UsuarioAutenticacaoRepositorio($em);
     }
 }

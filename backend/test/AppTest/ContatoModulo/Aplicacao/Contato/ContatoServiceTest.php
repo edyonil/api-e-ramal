@@ -31,6 +31,10 @@ class ContatoServiceTest extends TestCase
             'nome'            => 'Edy',
             'setor'           => 'GETEC',
             'ramalOuTelefone' => '3411',
+            'token'           => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+    .eyJpYXQiOjE0NzA2MDczMDAsImlzcyI6ImRvdWdsYXNwYXNxdWEuY29tIiwiZXhwIjox
+    NDcwNjEwOTAwLCJuYmYiOjE0NzA2MDcyOTksImRhdGEiOnsiaWQiOjEsIm5hbWUiOiJEb3
+    VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY'
         ];
 
         // Retorno do serviço
@@ -85,7 +89,7 @@ class ContatoServiceTest extends TestCase
         // Mock da classe que obtem o usuário autenticado e retorna uma
         // do tipo Usuario
         $autenticacao = $this->prophesize(AutenticacaoInterface::class);
-        $autenticacao->obterUsuarioAutenticado()
+        $autenticacao->obterUsuarioAutenticado($contato['token'])
             ->willReturn($usuario);
 
         // Mock do repositório
@@ -113,6 +117,10 @@ class ContatoServiceTest extends TestCase
             'nome'            => 'Edy',
             'setor'           => 'SUOPE',
             'ramalOuTelefone' => '3411',
+            'token'           => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+    .eyJpYXQiOjE0NzA2MDczMDAsImlzcyI6ImRvdWdsYXNwYXNxdWEuY29tIiwiZXhwIjox
+    NDcwNjEwOTAwLCJuYmYiOjE0NzA2MDcyOTksImRhdGEiOnsiaWQiOjEsIm5hbWUiOiJEb3
+    VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY'
         ];
 
         // Retorno do serviço
@@ -171,7 +179,7 @@ class ContatoServiceTest extends TestCase
         // Mock da classe que obtem o usuário autenticado e retorna uma
         // do tipo Usuario
         $autenticacao = $this->prophesize(AutenticacaoInterface::class);
-        $autenticacao->obterUsuarioAutenticado()
+        $autenticacao->obterUsuarioAutenticado($contato['token'])
             ->willReturn($usuario);
 
         // Mock do repositório
@@ -195,6 +203,11 @@ class ContatoServiceTest extends TestCase
     public function testLocalizandoUmContato()
     {
         $id = 1;
+
+        $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+.eyJpYXQiOjE0NzA2MDczMDAsImlzcyI6ImRvdWdsYXNwYXNxdWEuY29tIiwiZXhwIjox
+NDcwNjEwOTAwLCJuYmYiOjE0NzA2MDcyOTksImRhdGEiOnsiaWQiOjEsIm5hbWUiOiJEb3
+VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
 
         // Retorno do serviço
         $contatoRetorno = [
@@ -263,6 +276,11 @@ class ContatoServiceTest extends TestCase
 
     public function testListarContatosComPaginacao()
     {
+
+        $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+.eyJpYXQiOjE0NzA2MDczMDAsImlzcyI6ImRvdWdsYXNwYXNxdWEuY29tIiwiZXhwIjox
+NDcwNjEwOTAwLCJuYmYiOjE0NzA2MDcyOTksImRhdGEiOnsiaWQiOjEsIm5hbWUiOiJEb3
+VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
         // Retorno do serviço
         $contatoRetorno = [
             [
@@ -360,13 +378,14 @@ class ContatoServiceTest extends TestCase
         $input = [
             'page' => 1,
             'limit' => 2,
-            'usuario' => null
+            'usuario' => null,
+            'token' => $token
         ];
 
         // Mock da classe que obtem o usuário autenticado e retorna uma
         // do tipo Usuario
         $autenticacao = $this->prophesize(AutenticacaoInterface::class);
-        $autenticacao->obterUsuarioAutenticado()
+        $autenticacao->obterUsuarioAutenticado($token)
             ->willReturn($usuario);
 
         // Mock do repositório
@@ -438,6 +457,8 @@ class ContatoServiceTest extends TestCase
         // Mock da classe que obtem o usuário autenticado e retorna uma
         // do tipo Usuario
         $autenticacao = $this->prophesize(AutenticacaoInterface::class);
+        $autenticacao->obterUsuarioAutenticado($token)
+            ->willReturn($usuario);
 
         // Mock do repositório
         $repository = $this->prophesize(RepositorioInterface::class);
