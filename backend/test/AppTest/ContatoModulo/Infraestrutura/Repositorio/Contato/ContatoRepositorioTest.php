@@ -10,6 +10,7 @@ namespace AppTest\ContatoModulo\Infraestrutura\Repositorio\Contato;
 
 use AppTest\ContatoModulo\Infraestrutura\Repositorio\AbstractRepositorio;
 use ContatoModulo\Infraestrutura\Persistencia\Contato\Repositorio\ContatoRepositorio;
+use ContatoModulo\Modelo\Contato;
 
 use Doctrine\ORM\EntityManager;
 use Psr\Container\ContainerInterface;
@@ -43,9 +44,33 @@ class ContatoRepositorioTest extends AbstractRepositorio
         ];
     }
 
+    private function dadosUsuario()
+    {
+        return [
+            'nome' => 'EdyOnil',
+            'setor' => 'DIRAF',
+            'ramalOuTelefone' => '3117'
+        ];
+    }
+
     public function testAvaliaSeFuncionaContainer()
     {
         $this->assertInstanceOf(ContainerInterface::class, self::$container);
+    }
+
+    public function testCriarContato()
+    {
+        $data = $this->dadosUsuario();
+        $contato = new Contato();
+        $contato->setNome($data['nome'])
+                ->setSetor($data['setor'])
+                ->setRamalOuTelefone($data['ramalOuTelefone'])
+                ->setUsuario($obterUsuarioBanco());
+
+        $repositorio = $this->repositorio();
+        $contatoAdicionado = $repositorio->adicionar($contato);
+
+        $this->assertInstanceOf(Contato::class, $contatoAdicionado);
     }
 
     private function repositorio()
