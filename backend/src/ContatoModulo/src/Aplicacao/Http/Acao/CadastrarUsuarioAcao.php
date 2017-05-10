@@ -7,11 +7,26 @@ use ContatoModulo\Aplicacao\Usuario\UsuarioServico;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Zend\Diactoros\Response\JsonResponse;
 
+/**
+ * Class CadastrarUsuarioAcao
+ *
+ * @package ContatoModulo\Aplicacao\Http\Acao
+ * @author Alex Gomes <alexrsg@gmail.com>
+ */
 class CadastrarUsuarioAcao implements MiddlewareInterface
 {
+    /**
+     * @var UsuarioServico
+     */
     private $usuarioServico;
 
+    /**
+     * CadastrarUsuarioAcao constructor.
+     *
+     * @param UsuarioServico $usuarioServico
+     */
     public function __construct(UsuarioServico $usuarioServico)
     {
         $this->usuarioServico = $usuarioServico;
@@ -19,6 +34,6 @@ class CadastrarUsuarioAcao implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, DelegateInterface $delegate)
     {
-        var_dump('post');die;
+        return new JsonResponse($this->usuarioServico->adicionarUsuario($request->getParsedBody()));
     }
 }

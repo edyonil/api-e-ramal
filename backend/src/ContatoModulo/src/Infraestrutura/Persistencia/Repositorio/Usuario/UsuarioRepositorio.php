@@ -66,7 +66,7 @@ class UsuarioRepositorio implements RepositorioInterface
 
     public function atualizar(ModeloInterface $modelo): ModeloInterface
     {
-        $modelo->setUpdatedAt(date('Y-m-d H:i:s'));
+        $modelo->setUpdatedAt(new \DateTime());
 
         $this->entityManager->persist($modelo);
         $this->entityManager->flush();
@@ -76,7 +76,9 @@ class UsuarioRepositorio implements RepositorioInterface
 
     public function excluir(ModeloInterface $modelo): bool
     {
-        $this->entityManager->remove($modelo);
+        $modelo->setDeletedAt(new \DateTime());
+
+        $this->entityManager->persist($modelo);
         $this->entityManager->flush();
 
         return true;
@@ -94,6 +96,8 @@ class UsuarioRepositorio implements RepositorioInterface
             }
         }
 
-        return $this->entityManager->findBy($filtros);
+        $filtros['deletedAt'] = null;
+
+        return $this->entityManager->getRepository($this->modelo)->findBy($filtros);
     }
 }
