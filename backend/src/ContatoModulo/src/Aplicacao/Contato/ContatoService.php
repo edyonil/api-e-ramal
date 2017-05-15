@@ -129,11 +129,19 @@ class ContatoService
 
         $contato = $this->repositorio->listar($input);
 
+        if (count($contato) === 0 ) {
+            $retorno['itens'] = [];
+            $retorno['total'] = 0;
+
+            return $retorno;
+        };
+
         foreach ($contato as $item) {
             $retorno['itens'][] = $item->toArray();
-        }
+        };
 
         $retorno['total'] = $retorno['itens'];
+
         return $retorno;
     }
 

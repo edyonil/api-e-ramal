@@ -5,7 +5,6 @@ namespace ContatoModulo\Infraestrutura\Container\Aplicacao\Usuario;
 
 use ContatoModulo\Aplicacao\Usuario\UsuarioServico;
 use ContatoModulo\Infraestrutura\Persistencia\Repositorio\Usuario\UsuarioRepositorio;
-use App\Domain\Infrastructure\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Interop\Container\ContainerInterface;
 

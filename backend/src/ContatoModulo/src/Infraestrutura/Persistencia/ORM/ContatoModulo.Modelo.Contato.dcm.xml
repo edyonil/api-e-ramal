@@ -17,11 +17,12 @@
     <field name="updatedAt" type="datetime" column="updated_at"
            column-definition="timestamp"/>
     <field name="deletedAt" type="datetime" column="deleted_at"
-           column-definition="timestamp"
-           nullable="true"/>
+           column-definition="timestamp null"/>
 
     <many-to-one target-entity="ContatoModulo\Modelo\Usuario"
                  field="usuario"
-                 inversed-by="listaContatos" />
+                 inversed-by="listaContatos">
+      <join-column name="usuario_id" nullable="false" />
+    </many-to-one>
   </entity>
 </doctrine-mapping>

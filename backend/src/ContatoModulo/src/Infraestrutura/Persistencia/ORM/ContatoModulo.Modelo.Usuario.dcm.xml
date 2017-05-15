@@ -30,8 +30,7 @@
     <field name="updatedAt" type="datetime" column="updated_at"
            column-definition="timestamp"/>
     <field name="deletedAt" type="datetime" column="deleted_at"
-           column-definition="timestamp"
-           nullable="true"/>
+           column-definition="timestamp null" />
     <one-to-many target-entity="ContatoModulo\Modelo\Contato"
                  mapped-by="usuario"
                  field="listaContato" />

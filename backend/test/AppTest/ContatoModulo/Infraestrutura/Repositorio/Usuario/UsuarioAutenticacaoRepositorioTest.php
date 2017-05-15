@@ -12,6 +12,7 @@ class UsuarioAutenticacaoRepositorioTest extends AbstractRepositorio
 {
     public function testObterUsuarioAPartirDoLoginESenha()
     {
+        //$this->skippedTest();
         $email = 'alexrsg@gmail.com';
         $senha = 'xyz123';
 
