@@ -56,7 +56,7 @@ class Contato implements ModeloInterface
     /**
      * @var string
      */
-    private $deletedAt;
+    private $deletedAt = null;
 
     /**
      * @return mixed

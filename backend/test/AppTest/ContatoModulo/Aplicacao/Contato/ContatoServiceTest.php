@@ -404,6 +404,68 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
         $this->assertCount(3, $localizado['total']);
     }
 
+    public function testListarContatosVazios()
+    {
+
+        $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
+.eyJpYXQiOjE0NzA2MDczMDAsImlzcyI6ImRvdWdsYXNwYXNxdWEuY29tIiwiZXhwIjox
+NDcwNjEwOTAwLCJuYmYiOjE0NzA2MDcyOTksImRhdGEiOnsiaWQiOjEsIm5hbWUiOiJEb3
+VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
+
+        $usuarioC         = [
+            'id'                   => null,
+            'nome'                 => 'Edy',
+            'email'                => 'edy@edy.com',
+            'ativo'                => true,
+            'primeiroAcesso'       => false,
+            'compartilharContatos' => true,
+            'createdAt'            => '2015-12-03 00:00:00',
+            'updatedAt'            => '2015-12-03 00:00:00',
+            'deletedAt'            => null
+        ];
+
+        $usuario = new Usuario();
+
+        $usuario->setNome($usuarioC['nome'])
+            ->setEmail($usuarioC['email'])
+            ->setAtivo($usuarioC['ativo'])
+            ->setPrimeiroAcesso($usuarioC['primeiroAcesso'])
+            ->setCompartilharContatos($usuarioC['compartilharContatos'])
+            ->setCreatedAt($usuarioC['createdAt'])
+            ->setUpdatedAt($usuarioC['updatedAt'])
+            ->setDeletedAt($usuarioC['deletedAt']);
+
+        //Para o repositorio
+        $modelo = new Contato();
+
+        $input = [
+            'page' => 1,
+            'limit' => 2,
+            'usuario' => null,
+            'token' => $token
+        ];
+
+        // Mock da classe que obtem o usuário autenticado e retorna uma
+        // do tipo Usuario
+        $autenticacao = $this->prophesize(AutenticacaoInterface::class);
+        $autenticacao->obterUsuarioAutenticado($token)
+            ->willReturn($usuario);
+
+        // Mock do repositório
+        $repository = $this->prophesize(RepositorioInterface::class);
+
+        $repository->listar($input)->willReturn([]);
+
+        $contatoServico = new ContatoService(
+            $repository->reveal(),
+            $autenticacao->reveal()
+        );
+
+        $localizado = $contatoServico->listarContato($input);
+
+        $this->assertEquals($localizado['itens'], []);
+    }
+
     public function testExcluindoUmContato()
     {
         $id = 1;

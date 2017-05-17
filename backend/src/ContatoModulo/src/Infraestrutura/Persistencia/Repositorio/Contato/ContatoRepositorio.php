@@ -6,13 +6,14 @@
  * Time: 15:53
  */
 
-namespace ContatoModulo\Infraestrutura\Persistencia\Contato\Repositorio;
+namespace ContatoModulo\Infraestrutura\Persistencia\Repositorio\Contato;
 
 
 use ContatoModulo\Infraestrutura\Persistencia\Repositorio\RepositorioInterface;
 use ContatoModulo\Modelo\Contato;
 use ContatoModulo\Modelo\ModeloInterface;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\NoResultException;
 
 class ContatoRepositorio implements RepositorioInterface
 {
@@ -45,10 +46,17 @@ class ContatoRepositorio implements RepositorioInterface
 
     public function encontrar(int $id): ModeloInterface
     {
-        $contato = $this->entityManager->find($this->modelo, $id);
+        $contato = $this->entityManager
+                        ->getRepository($this->modelo)
+                        ->findOneBy(
+                            [
+                                'id' => $id,
+                                'deletedAt' => null
+                            ]
+                        );
 
         if ($contato === null) {
-            throw new \Exception('Registro não encontrado');
+            throw new NoResultException('Registro não encontrado');
         };
 
         return $contato;
@@ -56,7 +64,7 @@ class ContatoRepositorio implements RepositorioInterface
 
     public function atualizar(ModeloInterface $modelo): ModeloInterface
     {
-        $modelo->setUpdatedAt(date('Y-m-d H:i:s'));
+        $modelo->setUpdatedAt(new \DateTime("now"));
 
         $this->entityManager->persist($modelo);
         $this->entityManager->flush();
@@ -66,11 +74,27 @@ class ContatoRepositorio implements RepositorioInterface
 
     public function excluir(ModeloInterface $modelo): bool
     {
-        // TODO: Implement excluir() method.
+        $modelo->setDeletedAt(new \DateTime("now"));
+        $this->entityManager->persist($modelo);
+        $this->entityManager->flush();
+
+        return true;
     }
 
     public function listar(array $parametros): array
     {
-        // TODO: Implement listar() method.
+        $contato = $this->entityManager
+                        ->getRepository($this->modelo)
+                        ->findBy(
+                            [
+                                'usuario' => $parametros['usuario'],
+                                'deletedAt' => null
+                            ]
+                        );
+        if ($contato === null) {
+            return [];
+        };
+
+        return $contato;
     }
 }

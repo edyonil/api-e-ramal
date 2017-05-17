@@ -65,7 +65,7 @@ class Usuario implements ModeloInterface
     /**
      * @var string
      */
-    private $deletedAt;
+    private $deletedAt = null;
 
     /**
      * Usuario constructor.
