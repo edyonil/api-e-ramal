@@ -39,6 +39,11 @@ class ExcluirUsuarioAcao implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, DelegateInterface $delegate)
     {
-        return new JsonResponse($this->usuarioServico->excluirUsuario((int)$request->getAttribute('id')));
+        try {
+
+            return new JsonResponse($this->usuarioServico->excluirUsuario((int)$request->getAttribute('id')));
+        } catch (\Exception $e) {
+            return new JsonResponse($e->getMessage(), 400);
+        }
     }
 }

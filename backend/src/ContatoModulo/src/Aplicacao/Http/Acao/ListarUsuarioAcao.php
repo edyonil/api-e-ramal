@@ -39,6 +39,11 @@ class ListarUsuarioAcao implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, DelegateInterface $delegate)
     {
-        return new JsonResponse($this->usuarioServico->listarUsuario($request->getQueryParams()));
+        try {
+
+            return new JsonResponse($this->usuarioServico->listarUsuario($request->getQueryParams()));
+        } catch (\Exception $e) {
+            return new JsonResponse($e->getMessage(), 400);
+        }
     }
 }

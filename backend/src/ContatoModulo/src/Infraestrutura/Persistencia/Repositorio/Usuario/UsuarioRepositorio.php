@@ -55,7 +55,10 @@ class UsuarioRepositorio implements RepositorioInterface
 
     public function encontrar(int $id): ModeloInterface
     {
-        $usuario = $this->entityManager->find($this->modelo, $id);
+        $usuario = $this->entityManager->getRepository($this->modelo)->findOneBy([
+            'id' => $id,
+            'deletedAt' => null,
+        ]);
 
         if ($usuario === null) {
             throw new \Exception('Registro não encontrado.');

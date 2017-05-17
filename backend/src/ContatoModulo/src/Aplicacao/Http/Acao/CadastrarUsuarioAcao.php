@@ -34,6 +34,11 @@ class CadastrarUsuarioAcao implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, DelegateInterface $delegate)
     {
-        return new JsonResponse($this->usuarioServico->adicionarUsuario($request->getParsedBody()));
+        try {
+
+            return new JsonResponse($this->usuarioServico->adicionarUsuario($request->getParsedBody()));
+        } catch (\Exception $e) {
+            return new JsonResponse($e->getMessage(), 400);
+        }
     }
 }
