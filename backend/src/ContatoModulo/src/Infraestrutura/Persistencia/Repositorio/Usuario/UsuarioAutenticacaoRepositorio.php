@@ -20,13 +20,15 @@ class UsuarioAutenticacaoRepositorio extends UsuarioRepositorio
      * @param $email
      * @param $password
      * @return Usuario
+     * @throws UsuarioException
      */
     public function getUsuario($email, $password): Usuario
     {
         $logado = $this->entityManager->getRepository(Usuario::class)
                     ->findOneBy([
                             'email' => $email,
-                            'password' => $password
+                            'password' => $password,
+                            'deletedAt' => null,
                         ]
                     );
 
@@ -34,5 +36,7 @@ class UsuarioAutenticacaoRepositorio extends UsuarioRepositorio
             throw new UsuarioException("Usuário não encontrado");
 
         }
+
+        return $logado;
     }
 }

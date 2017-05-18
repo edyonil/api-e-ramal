@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace ContatoModulo\Aplicacao\Http\Acao;
+namespace ContatoModulo\Http\Acao;
 
 use ContatoModulo\Aplicacao\Usuario\UsuarioServico;
 use Interop\Http\ServerMiddleware\DelegateInterface;

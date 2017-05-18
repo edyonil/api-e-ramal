@@ -22,7 +22,6 @@ use PHPUnit\Framework\TestCase;
  */
 class ContatoServiceTest extends TestCase
 {
-
     public function testCriacaoDeUmContato()
     {
 
@@ -43,8 +42,8 @@ class ContatoServiceTest extends TestCase
             'nome'            => 'Edy',
             'setor'           => 'GETEC',
             'ramalOuTelefone' => '3411',
-            'createdAt'       => '2015-12-03 00:00:00',
-            'updatedAt'       => '2015-12-03 00:00:00',
+            'createdAt'       => '03/12/2015 00:00:00',
+            'updatedAt'       => '03/12/2015 00:00:00',
             'deletedAt'       => null,
             'usuario'         => [
                 'id'                   => null,
@@ -53,8 +52,8 @@ class ContatoServiceTest extends TestCase
                 'ativo'                => true,
                 'primeiroAcesso'       => false,
                 'compartilharContatos' => true,
-                'createdAt'            => '2015-12-03 00:00:00',
-                'updatedAt'            => '2015-12-03 00:00:00',
+                'createdAt'            => '03/12/2015 00:00:00',
+                'updatedAt'            => '03/12/2015 00:00:00',
                 'deletedAt'            => null
             ]
         ];
@@ -69,8 +68,8 @@ class ContatoServiceTest extends TestCase
             ->setAtivo($dataUsuario['ativo'])
             ->setPrimeiroAcesso($dataUsuario['primeiroAcesso'])
             ->setCompartilharContatos($dataUsuario['compartilharContatos'])
-            ->setCreatedAt($dataUsuario['createdAt'])
-            ->setUpdatedAt($dataUsuario['updatedAt'])
+            ->setCreatedAt($this->criarDataCadastro())
+            ->setUpdatedAt($this->criarDataCadastro())
             ->setDeletedAt($dataUsuario['deletedAt']);
 
         $modelo = new Contato();
@@ -82,8 +81,8 @@ class ContatoServiceTest extends TestCase
 
         $modeloRetorno = clone $modelo;
 
-        $modeloRetorno->setCreatedAt($contatoRetorno['createdAt'])
-            ->setUpdatedAt($contatoRetorno['updatedAt'])
+        $modeloRetorno->setCreatedAt($this->criarDataCadastro())
+            ->setUpdatedAt($this->criarDataCadastro())
             ->setDeletedAt($contatoRetorno['deletedAt']);
 
         // Mock da classe que obtem o usuário autenticado e retorna uma
@@ -129,8 +128,8 @@ class ContatoServiceTest extends TestCase
             'nome'            => 'Edy',
             'setor'           => 'SUOPE',
             'ramalOuTelefone' => '3411',
-            'createdAt'       => '2015-12-03 00:00:00',
-            'updatedAt'       => '2015-12-10 00:00:00',
+            'createdAt'       => '03/12/2015 00:00:00',
+            'updatedAt'       => '10/12/2015 00:00:00',
             'deletedAt'       => null,
             'usuario'         => [
                 'id'                   => null,
@@ -139,8 +138,8 @@ class ContatoServiceTest extends TestCase
                 'ativo'                => true,
                 'primeiroAcesso'       => false,
                 'compartilharContatos' => true,
-                'createdAt'            => '2015-12-03 00:00:00',
-                'updatedAt'            => '2015-12-03 00:00:00',
+                'createdAt'            => '03/12/2015 00:00:00',
+                'updatedAt'            => '03/12/2015 00:00:00',
                 'deletedAt'            => null
             ]
         ];
@@ -155,8 +154,8 @@ class ContatoServiceTest extends TestCase
             ->setAtivo($dataUsuario['ativo'])
             ->setPrimeiroAcesso($dataUsuario['primeiroAcesso'])
             ->setCompartilharContatos($dataUsuario['compartilharContatos'])
-            ->setCreatedAt($dataUsuario['createdAt'])
-            ->setUpdatedAt($dataUsuario['updatedAt'])
+            ->setCreatedAt($this->criarDataCadastro())
+            ->setUpdatedAt($this->criarDataCadastro())
             ->setDeletedAt($dataUsuario['deletedAt']);
 
         //Para o repositorio
@@ -165,15 +164,15 @@ class ContatoServiceTest extends TestCase
             ->setRamalOuTelefone($contatoRetorno['ramalOuTelefone'])
             ->setUsuario($usuario)
             ->setSetor('GETEC')
-            ->setCreatedAt($contatoRetorno['createdAt'])
-            ->setUpdatedAt($contatoRetorno['createdAt'])
+            ->setCreatedAt($this->criarDataCadastro())
+            ->setUpdatedAt($this->criarDataAtualizacao())
             ->setDeletedAt($contatoRetorno['deletedAt']);
 
         // Clone para o retorno do editar
         $modeloRetornoEditar = clone $modelo;
-        $modeloRetornoEditar->setCreatedAt($contatoRetorno['createdAt'])
+        $modeloRetornoEditar->setCreatedAt($this->criarDataCadastro())
             ->setSetor($contatoRetorno['setor'])
-            ->setUpdatedAt($contatoRetorno['updatedAt'])
+            ->setUpdatedAt($this->criarDataAtualizacao())
             ->setDeletedAt($contatoRetorno['deletedAt']);
 
         // Mock da classe que obtem o usuário autenticado e retorna uma
@@ -215,8 +214,8 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
             'nome'            => 'Edy',
             'setor'           => 'SUOPE',
             'ramalOuTelefone' => '3411',
-            'createdAt'       => '2015-12-03 00:00:00',
-            'updatedAt'       => '2015-12-10 00:00:00',
+            'createdAt'       => '03/12/2015 00:00:00',
+            'updatedAt'       => '10/12/2015 00:00:00',
             'deletedAt'       => null,
             'usuario'         => [
                 'id'                   => null,
@@ -225,8 +224,8 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
                 'ativo'                => true,
                 'primeiroAcesso'       => false,
                 'compartilharContatos' => true,
-                'createdAt'            => '2015-12-03 00:00:00',
-                'updatedAt'            => '2015-12-03 00:00:00',
+                'createdAt'            => '03/12/2015 00:00:00',
+                'updatedAt'            => '03/12/2015 00:00:00',
                 'deletedAt'            => null
             ]
         ];
@@ -241,8 +240,8 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
             ->setAtivo($dataUsuario['ativo'])
             ->setPrimeiroAcesso($dataUsuario['primeiroAcesso'])
             ->setCompartilharContatos($dataUsuario['compartilharContatos'])
-            ->setCreatedAt($dataUsuario['createdAt'])
-            ->setUpdatedAt($dataUsuario['updatedAt'])
+            ->setCreatedAt($this->criarDataCadastro())
+            ->setUpdatedAt($this->criarDataCadastro())
             ->setDeletedAt($dataUsuario['deletedAt']);
 
         //Para o repositorio
@@ -251,8 +250,8 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
             ->setRamalOuTelefone($contatoRetorno['ramalOuTelefone'])
             ->setSetor($contatoRetorno['setor'])
             ->setUsuario($usuario)
-            ->setCreatedAt($contatoRetorno['createdAt'])
-            ->setUpdatedAt($contatoRetorno['updatedAt'])
+            ->setCreatedAt($this->criarDataCadastro())
+            ->setUpdatedAt($this->criarDataAtualizacao())
             ->setDeletedAt($contatoRetorno['deletedAt']);
 
         // Mock da classe que obtem o usuário autenticado e retorna uma
@@ -288,8 +287,8 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
                 'nome'            => 'Edy',
                 'setor'           => 'SUOPE',
                 'ramalOuTelefone' => '3411',
-                'createdAt'       => '2015-12-03 00:00:00',
-                'updatedAt'       => '2015-12-10 00:00:00',
+                'createdAt'       => '03/12/2015 00:00:00',
+                'updatedAt'       => '10/12/2015 00:00:00',
                 'deletedAt'       => null,
                 'usuario'         => [
                     'id'                   => null,
@@ -298,8 +297,8 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
                     'ativo'                => true,
                     'primeiroAcesso'       => false,
                     'compartilharContatos' => true,
-                    'createdAt'            => '2015-12-03 00:00:00',
-                    'updatedAt'            => '2015-12-03 00:00:00',
+                    'createdAt'            => '03/12/2015 00:00:00',
+                    'updatedAt'            => '03/12/2015 00:00:00',
                     'deletedAt'            => null
                 ]
             ],
@@ -308,8 +307,8 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
                 'nome'            => 'Edy',
                 'setor'           => 'SUOPE',
                 'ramalOuTelefone' => '3411',
-                'createdAt'       => '2015-12-03 00:00:00',
-                'updatedAt'       => '2015-12-10 00:00:00',
+                'createdAt'       => '03/12/2015 00:00:00',
+                'updatedAt'       => '10/12/2015 00:00:00',
                 'deletedAt'       => null,
                 'usuario'         => [
                     'id'                   => null,
@@ -318,8 +317,8 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
                     'ativo'                => true,
                     'primeiroAcesso'       => false,
                     'compartilharContatos' => true,
-                    'createdAt'            => '2015-12-03 00:00:00',
-                    'updatedAt'            => '2015-12-03 00:00:00',
+                    'createdAt'            => '03/12/2015 00:00:00',
+                    'updatedAt'            => '03/12/2015 00:00:00',
                     'deletedAt'            => null
                 ]
             ],
@@ -328,8 +327,8 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
                 'nome'            => 'Edy',
                 'setor'           => 'SUOPE',
                 'ramalOuTelefone' => '3411',
-                'createdAt'       => '2015-12-03 00:00:00',
-                'updatedAt'       => '2015-12-10 00:00:00',
+                'createdAt'       => '03/12/2015 00:00:00',
+                'updatedAt'       => '10/12/2015 00:00:00',
                 'deletedAt'       => null,
                 'usuario'         => [
                     'id'                   => null,
@@ -338,8 +337,8 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
                     'ativo'                => true,
                     'primeiroAcesso'       => false,
                     'compartilharContatos' => true,
-                    'createdAt'            => '2015-12-03 00:00:00',
-                    'updatedAt'            => '2015-12-03 00:00:00',
+                    'createdAt'            => '03/12/2015 00:00:00',
+                    'updatedAt'            => '03/12/2015 00:00:00',
                     'deletedAt'            => null
                 ]
             ]
@@ -355,8 +354,8 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
             ->setAtivo($dataUsuario['ativo'])
             ->setPrimeiroAcesso($dataUsuario['primeiroAcesso'])
             ->setCompartilharContatos($dataUsuario['compartilharContatos'])
-            ->setCreatedAt($dataUsuario['createdAt'])
-            ->setUpdatedAt($dataUsuario['updatedAt'])
+            ->setCreatedAt($this->criarDataCadastro())
+            ->setUpdatedAt($this->criarDataCadastro())
             ->setDeletedAt($dataUsuario['deletedAt']);
 
         //Para o repositorio
@@ -365,8 +364,8 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
             ->setRamalOuTelefone($contatoRetorno[0]['ramalOuTelefone'])
             ->setSetor($contatoRetorno[0]['setor'])
             ->setUsuario($usuario)
-            ->setCreatedAt($contatoRetorno[0]['createdAt'])
-            ->setUpdatedAt($contatoRetorno[0]['updatedAt'])
+            ->setCreatedAt($this->criarDataCadastro())
+            ->setUpdatedAt($this->criarDataAtualizacao())
             ->setDeletedAt($contatoRetorno[0]['deletedAt']);
 
         $data = [
@@ -419,8 +418,8 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
             'ativo'                => true,
             'primeiroAcesso'       => false,
             'compartilharContatos' => true,
-            'createdAt'            => '2015-12-03 00:00:00',
-            'updatedAt'            => '2015-12-03 00:00:00',
+            'createdAt'            => '03/12/2015 00:00:00',
+            'updatedAt'            => '03/12/2015 00:00:00',
             'deletedAt'            => null
         ];
 
@@ -431,8 +430,8 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
             ->setAtivo($usuarioC['ativo'])
             ->setPrimeiroAcesso($usuarioC['primeiroAcesso'])
             ->setCompartilharContatos($usuarioC['compartilharContatos'])
-            ->setCreatedAt($usuarioC['createdAt'])
-            ->setUpdatedAt($usuarioC['updatedAt'])
+            ->setCreatedAt($this->criarDataCadastro())
+            ->setUpdatedAt($this->criarDataCadastro())
             ->setDeletedAt($usuarioC['deletedAt']);
 
         //Para o repositorio
@@ -476,8 +475,8 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
             'nome'            => 'Edy',
             'setor'           => 'SUOPE',
             'ramalOuTelefone' => '3411',
-            'createdAt'       => '2015-12-03 00:00:00',
-            'updatedAt'       => '2015-12-10 00:00:00',
+            'createdAt'       => '03/12/2015 00:00:00',
+            'updatedAt'       => '10/12/2015 00:00:00',
             'deletedAt'       => null,
             'usuario'         => [
                 'id'                   => null,
@@ -486,8 +485,8 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
                 'ativo'                => true,
                 'primeiroAcesso'       => false,
                 'compartilharContatos' => true,
-                'createdAt'            => '2015-12-03 00:00:00',
-                'updatedAt'            => '2015-12-03 00:00:00',
+                'createdAt'            => '03/12/2015 00:00:00',
+                'updatedAt'            => '03/12/2015 00:00:00',
                 'deletedAt'            => null
             ]
         ];
@@ -502,8 +501,8 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
             ->setAtivo($dataUsuario['ativo'])
             ->setPrimeiroAcesso($dataUsuario['primeiroAcesso'])
             ->setCompartilharContatos($dataUsuario['compartilharContatos'])
-            ->setCreatedAt($dataUsuario['createdAt'])
-            ->setUpdatedAt($dataUsuario['updatedAt'])
+            ->setCreatedAt($this->criarDataCadastro())
+            ->setUpdatedAt($this->criarDataCadastro())
             ->setDeletedAt($dataUsuario['deletedAt']);
 
         //Para o repositorio
@@ -512,8 +511,8 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
             ->setRamalOuTelefone($contatoRetorno['ramalOuTelefone'])
             ->setSetor($contatoRetorno['setor'])
             ->setUsuario($usuario)
-            ->setCreatedAt($contatoRetorno['createdAt'])
-            ->setUpdatedAt($contatoRetorno['updatedAt'])
+            ->setCreatedAt($this->criarDataCadastro())
+            ->setUpdatedAt($this->criarDataAtualizacao())
             ->setDeletedAt($contatoRetorno['deletedAt']);
 
         // Mock da classe que obtem o usuário autenticado e retorna uma
@@ -535,5 +534,25 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
         );
 
         $this->assertTrue($contatoServico->excluirContato($id));
+    }
+
+    /**
+     * Cria uma data para cadastro do registro
+     *
+     * @return \DateTime
+     */
+    protected function criarDataCadastro()
+    {
+        return new \DateTime('2015-12-03 00:00:00');
+    }
+
+    /**
+     * Cria uma data para atualização do registro
+     *
+     * @return \DateTime
+     */
+    protected function criarDataAtualizacao()
+    {
+        return new \DateTime('2015-12-10 00:00:00');
     }
 }

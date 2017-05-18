@@ -140,10 +140,21 @@ class Usuario implements ModeloInterface
             'ativo' => $this->ativo(),
             'primeiroAcesso' => $this->primeiroAcesso(),
             'compartilharContatos' => $this->getCompartilharContatos(),
-            'createdAt' => $this->getCreatedAt(),
-            'updatedAt' => $this->getUpdatedAt(),
-            'deletedAt' => $this->getDeletedAt()
+            'createdAt' => $this->tratarData($this->getCreatedAt()),
+            'updatedAt' => $this->tratarData($this->getUpdatedAt()),
+            'deletedAt' => $this->tratarData($this->getDeletedAt()),
         ];
+    }
+
+    /**
+     * Trata a data do formato \DateTime para o formato BR
+     *
+     * @param \DateTime|null $data
+     * @return string
+     */
+    protected function tratarData(\DateTime $data = null): string
+    {
+        return is_null($data) ? '' : $data->format('d/m/Y H:i:s');
     }
 
     /**
