@@ -6,6 +6,7 @@ use Zend\Expressive\Middleware\ImplicitHeadMiddleware;
 use Zend\Expressive\Middleware\ImplicitOptionsMiddleware;
 use Zend\Expressive\Middleware\NotFoundHandler;
 use Zend\Stratigility\Middleware\ErrorHandler;
+use Zend\Expressive\Helper\BodyParams\BodyParamsMiddleware;
 
 /**
  * Setup middleware pipeline:
@@ -34,6 +35,15 @@ $app->pipe(ServerUrlMiddleware::class);
 // - $app->pipe('/files', $filesMiddleware);
 
 // Register the routing middleware in the middleware pipeline
+$app->pipe(new \Tuupola\Middleware\Cors([
+    "origin" => ["*"],
+    "methods" => ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    "headers.allow" => ["Authorization", "If-Match", "If-Unmodified-Since"],
+    "headers.expose" => ["Etag"],
+    "credentials" => true,
+    "cache" => 86400
+]));
+$app->pipe(BodyParamsMiddleware::class);
 $app->pipeRoutingMiddleware();
 $app->pipe(ImplicitHeadMiddleware::class);
 $app->pipe(ImplicitOptionsMiddleware::class);

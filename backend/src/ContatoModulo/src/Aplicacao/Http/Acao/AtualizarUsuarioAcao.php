@@ -39,6 +39,8 @@ class AtualizarUsuarioAcao implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, DelegateInterface $delegate)
     {
+
+        var_dump($request->getParsedBody());exit;
         return new JsonResponse($this->usuarioServico->editarUsuario(
             (int)$request->getAttribute('id'),
             $request->getParsedBody()

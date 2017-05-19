@@ -25,15 +25,17 @@
  *     'contact'
  * );
  */
-
+use Zend\Diactoros\Response\JsonResponse;
 //$app->get('/', App\Action\HomePageAction::class, 'home');
 $app->get('/api/ping', App\Action\PingAction::class, 'api.ping');
 
-$app->get('/teste', App\Http\Action\HomeAction::class, 'teste');
+$app->post('/login',  function(){
+    return new JsonResponse(['token' => time()]);
+}, 'login');
 
 // Usuários
 $app->get('/usuarios', ContatoModulo\Aplicacao\Http\Acao\ListarUsuarioAcao::class, 'usuarios');
 $app->get('/usuarios/{id}', ContatoModulo\Aplicacao\Http\Acao\ObterUsuarioAcao::class, 'usuarios.get');
 $app->post('/usuarios', ContatoModulo\Aplicacao\Http\Acao\CadastrarUsuarioAcao::class, 'usuarios.create');
-$app->put('/usuarios/{id}', ContatoModulo\Aplicacao\Http\Acao\AtualizarUsuarioAcao::class, 'usuarios.put');
+$app->patch('/usuarios/{id}', ContatoModulo\Aplicacao\Http\Acao\AtualizarUsuarioAcao::class, 'usuarios.put');
 $app->delete('/usuarios/{id}', ContatoModulo\Aplicacao\Http\Acao\ExcluirUsuarioAcao::class, 'usuarios.delete');
