@@ -3,14 +3,22 @@ declare(strict_types=1);
 
 namespace ContatoModulo;
 
+use ContatoModulo\Aplicacao\Autenticacao\AutenticacaoJWT;
+use ContatoModulo\Aplicacao\Autenticacao\AutenticacaoJWTFactory;
+use ContatoModulo\Aplicacao\Autenticacao\AutenticacaoService;
+use ContatoModulo\Aplicacao\Autenticacao\AutenticacaoServiceFactory;
 use ContatoModulo\Http\Acao\AtualizarUsuarioAcao;
 use ContatoModulo\Http\Acao\CadastrarUsuarioAcao;
 use ContatoModulo\Http\Acao\ExcluirUsuarioAcao;
 use ContatoModulo\Http\Acao\ListarUsuarioAcao;
+use ContatoModulo\Http\Acao\LoginAcao;
+use ContatoModulo\Http\Acao\LoginAcaoFactory;
 use ContatoModulo\Http\Acao\ObterUsuarioAcao;
 use ContatoModulo\Http\Acao\UsuarioAcaoFactory;
 use ContatoModulo\Aplicacao\Usuario\UsuarioServico;
 use ContatoModulo\Infraestrutura\Container\Aplicacao\Usuario\UsuarioServicoFactory;
+use ContatoModulo\Infraestrutura\Persistencia\Repositorio\Usuario\UsuarioAutenticacaoRepositorio;
+use ContatoModulo\Infraestrutura\Persistencia\Repositorio\Usuario\UsuarioAutenticacaoRepositorioFactory;
 
 /**
  * The configuration provider for the ContatoModulo module
@@ -53,6 +61,11 @@ class ConfigProvider
                 CadastrarUsuarioAcao::class => UsuarioAcaoFactory::class,
                 AtualizarUsuarioAcao::class => UsuarioAcaoFactory::class,
                 ExcluirUsuarioAcao::class => UsuarioAcaoFactory::class,
+                // Login
+                LoginAcao::class => LoginAcaoFactory::class,
+                AutenticacaoService::class => AutenticacaoServiceFactory::class,
+                AutenticacaoJWT::class => AutenticacaoJWTFactory::class,
+                UsuarioAutenticacaoRepositorio::class => UsuarioAutenticacaoRepositorioFactory::class,
             ],
         ];
     }
