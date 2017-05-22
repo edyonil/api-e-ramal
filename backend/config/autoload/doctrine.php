@@ -2,7 +2,7 @@
 return [
     'doctrine' => [
         'orm' => [
-            'auto_generate_proxy_classes' => true,
+            'auto_generate_proxy_classes' => false,
             'proxy_dir'                   => 'data/cache/EntityProxy',
             'proxy_namespace'             => 'EntityProxy',
             'underscore_naming_strategy'  => true,
@@ -10,7 +10,7 @@ return [
         'connection' => [
             // default connection
             'orm_default' => [
-                'driver'   => 'sqLite',
+                'driver'   => 'pdo_mysql',
                 'dbname'   => 'demoDb',
                 'user'     => 'demoUser',
                 'password' => 'demoPass',
@@ -20,7 +20,7 @@ return [
         ],
         'annotation' => [
             'metadata' => [
-                'src/App/Entity'
+                'src/ContatoModulo/src/Infraestrutura/Persistencia/ORM/'
             ],
         ],
     ],
