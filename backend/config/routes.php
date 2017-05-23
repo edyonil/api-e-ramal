@@ -38,4 +38,4 @@ $app->put('/usuarios/{id}', ContatoModulo\Http\Acao\AtualizarUsuarioAcao::class,
 $app->delete('/usuarios/{id}', ContatoModulo\Http\Acao\ExcluirUsuarioAcao::class, 'usuarios.delete');
 
 // Login
-$app->post('/login', \ContatoModulo\Http\Acao\LoginAcao::class, 'login');
+$app->post('/auth/login', \ContatoModulo\Http\Acao\LoginAcao::class, 'login');
