@@ -40,3 +40,6 @@ $app->get('/usuarios/{id}', ContatoModulo\Http\Acao\ObterUsuarioAcao::class, 'us
 $app->post('/usuarios', ContatoModulo\Http\Acao\CadastrarUsuarioAcao::class, 'usuarios.create');
 $app->put('/usuarios/{id}', ContatoModulo\Http\Acao\AtualizarUsuarioAcao::class, 'usuarios.put');
 $app->delete('/usuarios/{id}', ContatoModulo\Http\Acao\ExcluirUsuarioAcao::class, 'usuarios.delete');
+
+// Login
+$app->post('/login', \ContatoModulo\Http\Acao\LoginAcao::class, 'login');

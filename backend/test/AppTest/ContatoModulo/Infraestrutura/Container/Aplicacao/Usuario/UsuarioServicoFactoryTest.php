@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Test\ContatoModulo\Infraestrutura\Container\Aplicacao\Usuario;
+namespace AppTest\ContatoModulo\Infraestrutura\Container\Aplicacao\Usuario;
 
 use ContatoModulo\Aplicacao\Usuario\UsuarioServico;
 use ContatoModulo\Infraestrutura\Container\Aplicacao\Usuario\UsuarioServicoFactory;
