@@ -41,7 +41,7 @@ class LoginAcao implements MiddlewareInterface
                 $this->input['password'])
             );
         } catch (\Exception $e) {
-            return new JsonResponse($e->getMessage(), 400);
+            return new JsonResponse(['message' => $e->getMessage()], 400);
         }
     }
 
