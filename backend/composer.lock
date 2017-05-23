@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "749bb6f9fe193f25b08e51b822985250",
+    "content-hash": "bc11b51e6edaa939671a2c7dc01a8dfd",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -910,6 +910,45 @@
                 "views"
             ],
             "time": "2016-12-28T00:14:17+00:00"
+        },
+        {
+            "name": "los/los-cors",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Lansoweb/los-cors.git",
+                "reference": "e67d286a66140182769ff15ca47a5d8c81ff656a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Lansoweb/los-cors/zipball/e67d286a66140182769ff15ca47a5d8c81ff656a",
+                "reference": "e67d286a66140182769ff15ca47a5d8c81ff656a",
+                "shasum": ""
+            },
+            "require": {
+                "container-interop/container-interop": "^1.1",
+                "neomerx/cors-psr7": "^1.0",
+                "php": "^7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "LosMiddleware\\LosCors\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Leandro Silva",
+                    "homepage": "http://leandrosilva.info/"
+                }
+            ],
+            "description": "PHP CORS middleware",
+            "homepage": "https://github.com/lansoweb/los-cors",
+            "time": "2016-09-14T16:41:38+00:00"
         },
         {
             "name": "neomerx/cors-psr7",

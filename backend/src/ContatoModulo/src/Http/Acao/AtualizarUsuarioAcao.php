@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace ContatoModulo\Aplicacao\Http\Acao;
+namespace ContatoModulo\Http\Acao;
 
 use ContatoModulo\Aplicacao\Usuario\UsuarioServico;
 use Interop\Http\ServerMiddleware\DelegateInterface;
@@ -10,12 +10,12 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
 
 /**
- * Class ObterUsuarioAcao
+ * Class AtualizarUsuarioAcao
  *
  * @package ContatoModulo\Aplicacao\Http\Acao
  * @author Alex Gomes <alexrsg@gmail.com>
  */
-class ObterUsuarioAcao implements MiddlewareInterface
+class AtualizarUsuarioAcao implements MiddlewareInterface
 {
     /**
      * @var UsuarioServico
@@ -23,7 +23,7 @@ class ObterUsuarioAcao implements MiddlewareInterface
     private $usuarioServico;
 
     /**
-     * ObterUsuarioAcao constructor.
+     * AtualizarUsuarioAcao constructor.
      *
      * @param UsuarioServico $usuarioServico
      */
@@ -39,6 +39,18 @@ class ObterUsuarioAcao implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, DelegateInterface $delegate)
     {
-        return new JsonResponse($this->usuarioServico->localizarUsuario((int)$request->getAttribute('id')));
+
+        return new JsonResponse($this->usuarioServico->editarUsuario(
+            (int)$request->getAttribute('id'),
+            $request->getParsedBody()
+        ));
+        try {
+            return new JsonResponse($this->usuarioServico->editarUsuario(
+                (int)$request->getAttribute('id'),
+                $request->getParsedBody()
+            ));
+        } catch (\Exception $e) {
+            return new JsonResponse($e->getMessage(), 400);
+        }
     }
 }

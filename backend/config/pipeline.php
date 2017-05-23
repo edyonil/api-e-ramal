@@ -34,15 +34,19 @@ $app->pipe(ServerUrlMiddleware::class);
 // - $app->pipe('/docs', $apiDocMiddleware);
 // - $app->pipe('/files', $filesMiddleware);
 
-// Register the routing middleware in the middleware pipeline
-$app->pipe(new \Tuupola\Middleware\Cors([
-    "origin" => ["*"],
-    "methods" => ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    "headers.allow" => ["Authorization", "If-Match", "If-Unmodified-Since"],
-    "headers.expose" => ["Etag"],
-    "credentials" => true,
-    "cache" => 86400
-]));
+$app->pipe(
+    new \Tuupola\Middleware\Cors(
+        [
+            "origin" => ["*"],
+            "methods" => ["GET", "POST", "PUT", "PATCH", "DELETE"],
+            "headers.allow" => ['Origin', 'Content-Type', 'X-Auth-Token' , 'Authorization'],
+            "headers.expose" => ["*"],
+            "credentials" => true,
+            "cache" => 86400
+        ]
+    )
+);
+
 $app->pipe(BodyParamsMiddleware::class);
 $app->pipeRoutingMiddleware();
 $app->pipe(ImplicitHeadMiddleware::class);

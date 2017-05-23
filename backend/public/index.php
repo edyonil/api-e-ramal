@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Delegate static file requests back to the PHP built-in webserver
  */

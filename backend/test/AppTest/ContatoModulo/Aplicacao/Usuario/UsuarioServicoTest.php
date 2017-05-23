@@ -33,8 +33,8 @@ class UsuarioServicoTest extends TestCase
             'ativo' => true,
             'primeiroAcesso' => true,
             'compartilharContatos' => false,
-            'createdAt' => '2017-05-03 00:00:00',
-            'updatedAt' => '2017-05-03 00:00:00',
+            'createdAt' => '03/12/2015 00:00:00',
+            'updatedAt' => '03/12/2015 00:00:00',
             'deletedAt' => null,
         ];
 
@@ -48,8 +48,8 @@ class UsuarioServicoTest extends TestCase
             ->setPrimeiroAcesso(true);
 
         $outputRepo = clone $inputRepo;
-        $outputRepo->setCreatedAt('2017-05-03 00:00:00')
-            ->setUpdatedAt('2017-05-03 00:00:00');
+        $outputRepo->setCreatedAt($this->criarDataCadastro())
+            ->setUpdatedAt($this->criarDataCadastro());
 
         $repositorio = $this->prophesize(RepositorioInterface::class);
         $repositorio->adicionar($inputRepo)->willReturn($outputRepo);
@@ -84,21 +84,21 @@ class UsuarioServicoTest extends TestCase
             'ativo' => true,
             'primeiroAcesso' => false,
             'compartilharContatos' => false,
-            'createdAt' => '2017-05-03 00:00:00',
-            'updatedAt' => '2017-05-03 01:00:00',
+            'createdAt' => '03/12/2015 00:00:00',
+            'updatedAt' => '10/12/2015 00:00:00',
             'deletedAt' => null,
         ];
 
         $inputRepo = new Usuario();
         $inputRepo->setAtivo(true)
             ->setCompartilharContatos(false)
-            ->setCreatedAt('2017-05-03 00:00:00')
+            ->setCreatedAt($this->criarDataCadastro())
             ->setDeletedAt(null)
             ->setEmail($input['email'])
             ->setNome($input['nome'])
             ->setPassword($input['password'])
             ->setPrimeiroAcesso(false)
-            ->setUpdatedAt('2017-05-03 01:00:00');
+            ->setUpdatedAt($this->criarDataAtualizacao());
 
         $outputRepo = clone $inputRepo;
         $outputRepoEditar = clone $outputRepo;
@@ -129,8 +129,8 @@ class UsuarioServicoTest extends TestCase
             'ativo' => true,
             'primeiroAcesso' => true,
             'compartilharContatos' => false,
-            'createdAt' => '2017-05-03 00:00:00',
-            'updatedAt' => '2017-05-03 00:00:00',
+            'createdAt' => '03/12/2015 00:00:00',
+            'updatedAt' => '10/12/2015 00:00:00',
             'deletedAt' => null,
         ];
 
@@ -141,8 +141,8 @@ class UsuarioServicoTest extends TestCase
             ->setAtivo($output['ativo'])
             ->setPrimeiroAcesso($output['primeiroAcesso'])
             ->setCompartilharContatos($output['compartilharContatos'])
-            ->setCreatedAt($output['createdAt'])
-            ->setUpdatedAt($output['updatedAt'])
+            ->setCreatedAt($this->criarDataCadastro())
+            ->setUpdatedAt($this->criarDataAtualizacao())
             ->setDeletedAt($output['deletedAt']);
 
         // Mock do repositório
@@ -170,8 +170,8 @@ class UsuarioServicoTest extends TestCase
                 'ativo' => true,
                 'primeiroAcesso' => true,
                 'compartilharContatos' => false,
-                'createdAt' => '2017-05-03 00:00:00',
-                'updatedAt' => '2017-05-03 00:00:00',
+                'createdAt' => '03/12/2015 00:00:00',
+                'updatedAt' => '10/12/2015 00:00:00',
                 'deletedAt' => null,
             ],
             [
@@ -181,8 +181,8 @@ class UsuarioServicoTest extends TestCase
                 'ativo' => true,
                 'primeiroAcesso' => true,
                 'compartilharContatos' => false,
-                'createdAt' => '2017-05-03 00:00:00',
-                'updatedAt' => '2017-05-03 00:00:00',
+                'createdAt' => '03/12/2015 00:00:00',
+                'updatedAt' => '10/12/2015 00:00:00',
                 'deletedAt' => null,
             ],
             [
@@ -192,8 +192,8 @@ class UsuarioServicoTest extends TestCase
                 'ativo' => true,
                 'primeiroAcesso' => true,
                 'compartilharContatos' => false,
-                'createdAt' => '2017-05-03 00:00:00',
-                'updatedAt' => '2017-05-03 00:00:00',
+                'createdAt' => '03/12/2015 00:00:00',
+                'updatedAt' => '10/12/2015 00:00:00',
                 'deletedAt' => null,
             ]
         ];
@@ -205,8 +205,8 @@ class UsuarioServicoTest extends TestCase
             ->setAtivo($output[0]['ativo'])
             ->setPrimeiroAcesso($output[0]['primeiroAcesso'])
             ->setCompartilharContatos($output[0]['compartilharContatos'])
-            ->setCreatedAt($output[0]['createdAt'])
-            ->setUpdatedAt($output[0]['updatedAt'])
+            ->setCreatedAt($this->criarDataCadastro())
+            ->setUpdatedAt($this->criarDataAtualizacao())
             ->setDeletedAt($output[0]['deletedAt']);
 
         $outputRepo = [
@@ -247,8 +247,8 @@ class UsuarioServicoTest extends TestCase
             'ativo' => true,
             'primeiroAcesso' => true,
             'compartilharContatos' => false,
-            'createdAt' => '2017-05-03 00:00:00',
-            'updatedAt' => '2017-05-03 00:00:00',
+            'createdAt' => '03/12/2015 00:00:00',
+            'updatedAt' => '10/12/2015 00:00:00',
             'deletedAt' => null,
         ];
 
@@ -259,8 +259,8 @@ class UsuarioServicoTest extends TestCase
             ->setAtivo($output['ativo'])
             ->setPrimeiroAcesso($output['primeiroAcesso'])
             ->setCompartilharContatos($output['compartilharContatos'])
-            ->setCreatedAt($output['createdAt'])
-            ->setUpdatedAt($output['updatedAt'])
+            ->setCreatedAt($this->criarDataCadastro())
+            ->setUpdatedAt($this->criarDataAtualizacao())
             ->setDeletedAt($output['deletedAt']);
 
         // Mock do repositório
@@ -273,5 +273,25 @@ class UsuarioServicoTest extends TestCase
         $usuarioServico = new UsuarioServico($repository->reveal());
 
         $this->assertTrue($usuarioServico->excluirUsuario($id));
+    }
+
+    /**
+     * Cria uma data para cadastro do registro
+     *
+     * @return \DateTime
+     */
+    protected function criarDataCadastro()
+    {
+        return new \DateTime('2015-12-03 00:00:00');
+    }
+
+    /**
+     * Cria uma data para atualização do registro
+     *
+     * @return \DateTime
+     */
+    protected function criarDataAtualizacao()
+    {
+        return new \DateTime('2015-12-10 00:00:00');
     }
 }

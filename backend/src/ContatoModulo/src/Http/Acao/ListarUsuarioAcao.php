@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace ContatoModulo\Aplicacao\Http\Acao;
+namespace ContatoModulo\Http\Acao;
 
 use ContatoModulo\Aplicacao\Usuario\UsuarioServico;
 use Interop\Http\ServerMiddleware\DelegateInterface;
@@ -10,12 +10,12 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
 
 /**
- * Class ExcluirUsuarioAcao
+ * Class ListarUsuarioAcao
  *
  * @package ContatoModulo\Aplicacao\Http\Acao
  * @author Alex Gomes <alexrsg@gmail.com>
  */
-class ExcluirUsuarioAcao implements MiddlewareInterface
+class ListarUsuarioAcao implements MiddlewareInterface
 {
     /**
      * @var UsuarioServico
@@ -23,7 +23,7 @@ class ExcluirUsuarioAcao implements MiddlewareInterface
     private $usuarioServico;
 
     /**
-     * ExcluirUsuarioAcao constructor.
+     * ListarUsuarioAcao constructor.
      *
      * @param UsuarioServico $usuarioServico
      */
@@ -39,6 +39,11 @@ class ExcluirUsuarioAcao implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, DelegateInterface $delegate)
     {
-        return new JsonResponse($this->usuarioServico->excluirUsuario((int)$request->getAttribute('id')));
+        try {
+
+            return new JsonResponse($this->usuarioServico->listarUsuario($request->getQueryParams()));
+        } catch (\Exception $e) {
+            return new JsonResponse($e->getMessage(), 400);
+        }
     }
 }

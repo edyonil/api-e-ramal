@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace ContatoModulo;
 
-use ContatoModulo\Aplicacao\Http\Acao\AtualizarUsuarioAcao;
-use ContatoModulo\Aplicacao\Http\Acao\CadastrarUsuarioAcao;
-use ContatoModulo\Aplicacao\Http\Acao\ExcluirUsuarioAcao;
-use ContatoModulo\Aplicacao\Http\Acao\ListarUsuarioAcao;
-use ContatoModulo\Aplicacao\Http\Acao\ObterUsuarioAcao;
-use ContatoModulo\Aplicacao\Http\Acao\UsuarioAcaoFactory;
+use ContatoModulo\Http\Acao\AtualizarUsuarioAcao;
+use ContatoModulo\Http\Acao\CadastrarUsuarioAcao;
+use ContatoModulo\Http\Acao\ExcluirUsuarioAcao;
+use ContatoModulo\Http\Acao\ListarUsuarioAcao;
+use ContatoModulo\Http\Acao\ObterUsuarioAcao;
+use ContatoModulo\Http\Acao\UsuarioAcaoFactory;
 use ContatoModulo\Aplicacao\Usuario\UsuarioServico;
 use ContatoModulo\Infraestrutura\Container\Aplicacao\Usuario\UsuarioServicoFactory;
 
