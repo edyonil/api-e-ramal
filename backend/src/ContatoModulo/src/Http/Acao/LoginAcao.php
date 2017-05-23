@@ -19,6 +19,8 @@ class LoginAcao implements MiddlewareInterface
 {
     private $autenticacaoServico;
 
+    private $input;
+
     public function __construct(AutenticacaoService $autenticacaoService)
     {
         $this->autenticacaoServico = $autenticacaoService;
@@ -30,14 +32,30 @@ class LoginAcao implements MiddlewareInterface
     ) {
         try {
 
-            $input = $request->getParsedBody();
+            $this->input = $request->getParsedBody();
+
+            $this->validacao();
 
             return new JsonResponse($this->autenticacaoServico->login(
-                $input['email'],
-                $input['password'])
+                $this->input['email'],
+                $this->input['password'])
             );
         } catch (\Exception $e) {
             return new JsonResponse($e->getMessage(), 400);
+        }
+    }
+
+    /**
+     * @throws \Exception
+     */
+    protected function validacao()
+    {
+        if (!isset($this->input['email'])) {
+            throw new \Exception('O campo e-mail é obrigatório.');
+        }
+
+        if (!isset($this->input['password'])) {
+            throw new \Exception('O campo password é obrigatório.');
         }
     }
 }
