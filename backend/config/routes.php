@@ -25,13 +25,9 @@
  *     'contact'
  * );
  */
-use Zend\Diactoros\Response\JsonResponse;
+
 //$app->get('/', App\Action\HomePageAction::class, 'home');
 $app->get('/api/ping', App\Action\PingAction::class, 'api.ping');
-
-$app->post('/login',  function(){
-    return new JsonResponse(['token' => time()]);
-}, 'login');
 
 // Usuários
 
