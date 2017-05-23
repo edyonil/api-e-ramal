@@ -43,7 +43,7 @@ class ListarUsuarioAcao implements MiddlewareInterface
 
             return new JsonResponse($this->usuarioServico->listarUsuario($request->getQueryParams()));
         } catch (\Exception $e) {
-            return new JsonResponse($e->getMessage(), 400);
+            return new JsonResponse(['message' => $e->getMessage()], 400);
         }
     }
 }

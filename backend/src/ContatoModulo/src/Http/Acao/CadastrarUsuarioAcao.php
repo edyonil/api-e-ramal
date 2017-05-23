@@ -38,7 +38,7 @@ class CadastrarUsuarioAcao implements MiddlewareInterface
 
             return new JsonResponse($this->usuarioServico->adicionarUsuario($request->getParsedBody()));
         } catch (\Exception $e) {
-            return new JsonResponse($e->getMessage(), 400);
+            return new JsonResponse(['message' => $e->getMessage()], 400);
         }
     }
 }

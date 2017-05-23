@@ -43,7 +43,7 @@ class ObterUsuarioAcao implements MiddlewareInterface
 
             return new JsonResponse($this->usuarioServico->localizarUsuario((int)$request->getAttribute('id')));
         } catch (\Exception $e) {
-            return new JsonResponse($e->getMessage(), 400);
+            return new JsonResponse(['message' => $e->getMessage()], 400);
         }
     }
 }
