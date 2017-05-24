@@ -8,8 +8,8 @@ use ContatoModulo\Aplicacao\Autenticacao\AutenticacaoJWT;
 use ContatoModulo\Modelo\Usuario;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Zend\Diactoros\Response\JsonResponse;
 
 /**
  * Class VerificacaoTokenMiddlewareTest
@@ -18,18 +18,24 @@ use Psr\Http\Message\ServerRequestInterface;
  */
 class VerificacaoTokenMiddlewareTest extends TestCase
 {
-    public function testVerificarToken()
+    public function testVerificarRequisaoNaoPossuiToken()
     {
+        $output = [
+            'message' => 'Token não informado.',
+        ];
+
         $request = $this->prophesize(ServerRequestInterface::class);
-        $request->getParsedBody()->willReturn($this->getToken())->shouldBeCalled();
+        $request->getParsedBody()->willReturn([])->shouldBeCalled();
 
         $delegate = $this->prophesize(DelegateInterface::class);
-        $delegate->process($request)->willReturn(ResponseInterface::class)->shouldBeCalled();
 
         $middleware = new VerificacaoTokenMiddleware();
         $response = $middleware->process($request->reveal(), $delegate->reveal());
 
-        $this->assertInstanceOf(ResponseInterface::class, $response);
+        $resultado = (array)json_decode((string)$response->getBody());
+
+        $this->assertInstanceOf(JsonResponse::class, $response);
+        $this->assertEquals($output, $resultado);
     }
 
     /**

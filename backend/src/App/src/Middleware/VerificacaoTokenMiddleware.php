@@ -22,10 +22,10 @@ class VerificacaoTokenMiddleware implements MiddlewareInterface
     ) {
         $input = $request->getParsedBody();
 
-        if (!isset($input['token'])) {
-            return new JsonResponse(['message' => 'Token não informado.'], 400);
+        if (isset($input['token'])) {
+            return $delegate->process($request);
         }
 
-        return $delegate->process($request);
+        return new JsonResponse(['message' => 'Token não informado.'], 400);
     }
 }
