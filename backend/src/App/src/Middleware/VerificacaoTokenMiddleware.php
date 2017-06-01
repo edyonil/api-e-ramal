@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Middleware;
 
+use ContatoModulo\Aplicacao\Autenticacao\AutenticacaoJWT;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -20,12 +21,39 @@ class VerificacaoTokenMiddleware implements MiddlewareInterface
         ServerRequestInterface $request,
         DelegateInterface $delegate
     ) {
-        $input = $request->getParsedBody();
+        try {
+            if ($this->validarToken($request)) {
+                return $delegate->process($request);
+            }
 
-        if (isset($input['token'])) {
-            return $delegate->process($request);
+            return new JsonResponse(['message' => 'Token não informado.'], 400);
+        } catch (\Exception $e) {
+            return new JsonResponse(['message' => $e->getMessage()], 400);
+        }
+    }
+
+    /**
+     * Valida o token informado
+     *
+     * @param ServerRequestInterface $request
+     * @return bool
+     */
+    protected function validarToken(ServerRequestInterface $request): bool
+    {
+        $input = $request->getHeader('authorization');
+
+        if (empty($input)) {
+            return false;
         }
 
-        return new JsonResponse(['message' => 'Token não informado.'], 400);
+        list($token) = sscanf($input['0'], 'Bearer %s');
+
+        if (is_null($token)) {
+            return false;
+        }
+
+        $jwt = new AutenticacaoJWT();
+
+        return $jwt->extrairDados($token) ? true : false;
     }
 }

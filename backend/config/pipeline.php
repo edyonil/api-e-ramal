@@ -48,6 +48,9 @@ $app->pipe(
 );
 
 $app->pipe(BodyParamsMiddleware::class);
+
+$app->pipe(\App\Middleware\VerificacaoTokenMiddleware::class);
+
 $app->pipeRoutingMiddleware();
 $app->pipe(ImplicitHeadMiddleware::class);
 $app->pipe(ImplicitOptionsMiddleware::class);
