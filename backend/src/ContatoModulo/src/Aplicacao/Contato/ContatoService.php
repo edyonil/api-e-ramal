@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace ContatoModulo\Aplicacao\Contato;
@@ -37,7 +36,7 @@ class ContatoService
     /**
      * ContatoService constructor.
      *
-     * @param RepositorioInterface  $repositorio  Classe de Repositorio
+     * @param RepositorioInterface $repositorio Classe de Repositorio
      * @param AutenticacaoInterface $autenticacao Classe de autenticação
      */
     public function __construct(
@@ -76,7 +75,7 @@ class ContatoService
     /**
      * Responsável por localizar e editar um contato
      *
-     * @param int   $id    Identificador do contato na lista
+     * @param int $id Identificador do contato na lista
      * @param array $input Campos que serão atualizados do contato
      *                     Deve ser enviado os seguintes campos
      *                     nome, setor, ramalOuTelefone
@@ -104,10 +103,9 @@ class ContatoService
      * Responsável em localizar um contato
      *
      * @param int $id Identificador do contato na lista
-     *
      * @return array
      */
-    public function localizarContato(int $id) : array
+    public function localizarContato(int $id): array
     {
         $contato = $this->repositorio->encontrar($id);
         return $contato->toArray();
@@ -117,10 +115,9 @@ class ContatoService
      * Lista todos os contatos cadastros no sistema para o usuário
      *
      * @param array $input Parametros para filtros da lista de contatos
-     *
      * @return array
      */
-    public function listarContato(array $input) : array
+    public function listarContato(array $input): array
     {
         $retorno = [];
 
@@ -129,7 +126,7 @@ class ContatoService
 
         $contato = $this->repositorio->listar($input);
 
-        if (count($contato) === 0 ) {
+        if (count($contato) === 0) {
             $retorno['itens'] = [];
             $retorno['total'] = 0;
 
@@ -138,7 +135,7 @@ class ContatoService
 
         foreach ($contato as $item) {
             $retorno['itens'][] = $item->toArray();
-        };
+        }
 
         $retorno['total'] = $retorno['itens'];
 
@@ -149,17 +146,12 @@ class ContatoService
      * Responsável por excluir contatos da lista
      *
      * @param int $id Identificador do contato na lista
-     *
      * @return bool
      */
-    public function excluirContato(int $id) : bool
+    public function excluirContato(int $id): bool
     {
-
         $usuario = $this->repositorio->encontrar($id);
 
         return $this->repositorio->excluir($usuario);
     }
-
-
-
 }

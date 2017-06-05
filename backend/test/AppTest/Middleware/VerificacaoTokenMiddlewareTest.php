@@ -18,24 +18,24 @@ use Zend\Diactoros\Response\JsonResponse;
  */
 class VerificacaoTokenMiddlewareTest extends TestCase
 {
-    public function testVerificarRequisaoNaoPossuiToken()
+    public function testVerificarRequisaoPossuiToken()
     {
-        $output = [
-            'message' => 'Token não informado.',
+        $tokenTeste = $this->getToken();
+
+        $outputRequest = [
+            "Bearer {$tokenTeste['token']}"
         ];
 
         $request = $this->prophesize(ServerRequestInterface::class);
-        $request->getParsedBody()->willReturn([])->shouldBeCalled();
+        $request->getHeader('authorization')->willReturn($outputRequest)->shouldBeCalled();
 
         $delegate = $this->prophesize(DelegateInterface::class);
+        $delegate->process($request->reveal())->willReturn($request->reveal())->shouldBeCalled();
 
         $middleware = new VerificacaoTokenMiddleware();
         $response = $middleware->process($request->reveal(), $delegate->reveal());
 
-        $resultado = (array)json_decode((string)$response->getBody());
-
-        $this->assertInstanceOf(JsonResponse::class, $response);
-        $this->assertEquals($output, $resultado);
+        $this->assertEquals($request->reveal(), $response);
     }
 
     /**

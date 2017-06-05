@@ -89,9 +89,12 @@ class UsuarioServico
      */
     public function listarUsuario(array $input): array
     {
-        $dados = [];
-
         $usuario = $this->repositorio->listar($input);
+
+        $dados = [
+            'itens' => [],
+            'total' => 0,
+        ];
 
         foreach ($usuario as $u) {
             $dados['itens'][] = $u->toArray();

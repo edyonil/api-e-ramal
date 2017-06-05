@@ -3,43 +3,49 @@ declare(strict_types=1);
 
 namespace AppTest\ContatoModulo\Http\Acao;
 
-use ContatoModulo\Aplicacao\Usuario\UsuarioServico;
-use ContatoModulo\Http\Acao\ListarUsuarioAcao;
+use ContatoModulo\Aplicacao\Contato\ContatoService;
+use ContatoModulo\Http\Acao\AtualizarContatoAcao;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
 
 /**
- * Class ListarUsuarioAcaoTest
+ * Class AtualizarContatoAcaoTest
  *
  * @package AppTest\ContatoModulo\Http\Acao
- * @author Alex Gomes <alexrsg@gmail.com>
- *
  * @group ContatoModulo
  */
-class ListarUsuarioAcaoTest extends TestCase
+class AtualizarContatoAcaoTest extends TestCase
 {
-    public function testListarTodosOsUsuariosCadastrados()
+    public function testAtualizarUmContato()
     {
-        $input = [];
+        $input = [
+            'nome' => 'Alexsandro Gomes',
+            'setor' => 'SEDEN',
+            'ramalOuTelefone' => '3411',
+        ];
 
         $output = [
-            'itens' => [
-                (object)$this->getUsuario(),
-                (object)$this->getUsuario(),
-                (object)$this->getUsuario(),
-            ],
-            'total' => 3,
+            'id' => 1,
+            'nome' => $input['nome'],
+            'setor' => $input['setor'],
+            'ramalOuTelefone' => $input['ramalOuTelefone'],
+            'usuario' => (object)$this->getUsuario(),
+            'createdAt' => '01/05/2017 00:00:00',
+            'updatedAt' => '10/05/2017 00:00:00',
+            'deletedAt' => '',
         ];
 
         $request = $this->prophesize(ServerRequestInterface::class);
-        $request->getQueryParams()->willReturn($input)->shouldBeCalled();
+        $request->getParsedBody()->willReturn($input)->shouldBeCalled();
+        $request->getAttribute('id')->willReturn($output['id'])->shouldBeCalled();
 
-        $servico = $this->prophesize(UsuarioServico::class);
-        $servico->listarUsuario($input)->willReturn($output)->shouldBeCalled();
+        $servico = $this->prophesize(ContatoService::class);
+        $servico->editarContato($output['id'], $input)->willReturn($output)->shouldBeCalled();
 
-        $acao = new ListarUsuarioAcao($servico->reveal());
+        $acao = new AtualizarContatoAcao($servico->reveal());
+
         $response = $acao->process(
             $request->reveal(),
             $this->prophesize(DelegateInterface::class)->reveal()
@@ -52,6 +58,8 @@ class ListarUsuarioAcaoTest extends TestCase
     }
 
     /**
+     * Obtém o usuário de teste
+     *
      * @return array
      */
     protected function getUsuario(): array

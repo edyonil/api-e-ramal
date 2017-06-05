@@ -7,15 +7,23 @@ use ContatoModulo\Aplicacao\Autenticacao\AutenticacaoJWT;
 use ContatoModulo\Aplicacao\Autenticacao\AutenticacaoJWTFactory;
 use ContatoModulo\Aplicacao\Autenticacao\AutenticacaoService;
 use ContatoModulo\Aplicacao\Autenticacao\AutenticacaoServiceFactory;
+use ContatoModulo\Aplicacao\Contato\ContatoService;
+use ContatoModulo\Http\Acao\AtualizarContatoAcao;
 use ContatoModulo\Http\Acao\AtualizarUsuarioAcao;
+use ContatoModulo\Http\Acao\CadastrarContatoAcao;
 use ContatoModulo\Http\Acao\CadastrarUsuarioAcao;
+use ContatoModulo\Http\Acao\ContatoAcaoFactory;
+use ContatoModulo\Http\Acao\ExcluirContatoAcao;
 use ContatoModulo\Http\Acao\ExcluirUsuarioAcao;
+use ContatoModulo\Http\Acao\ListarContatoAcao;
 use ContatoModulo\Http\Acao\ListarUsuarioAcao;
 use ContatoModulo\Http\Acao\LoginAcao;
 use ContatoModulo\Http\Acao\LoginAcaoFactory;
+use ContatoModulo\Http\Acao\ObterContatoAcao;
 use ContatoModulo\Http\Acao\ObterUsuarioAcao;
 use ContatoModulo\Http\Acao\UsuarioAcaoFactory;
 use ContatoModulo\Aplicacao\Usuario\UsuarioServico;
+use ContatoModulo\Infraestrutura\Container\Aplicacao\Contato\ContatoServicoFactory;
 use ContatoModulo\Infraestrutura\Container\Aplicacao\Usuario\UsuarioServicoFactory;
 use ContatoModulo\Infraestrutura\Persistencia\Repositorio\Usuario\UsuarioAutenticacaoRepositorio;
 use ContatoModulo\Infraestrutura\Persistencia\Repositorio\Usuario\UsuarioAutenticacaoRepositorioFactory;
@@ -53,7 +61,7 @@ class ConfigProvider
         return [
             'invokables' => [
             ],
-            'factories'  => [
+            'factories' => [
                 // Usuário
                 UsuarioServico::class => UsuarioServicoFactory::class,
                 ListarUsuarioAcao::class => UsuarioAcaoFactory::class,
@@ -66,6 +74,13 @@ class ConfigProvider
                 AutenticacaoService::class => AutenticacaoServiceFactory::class,
                 AutenticacaoJWT::class => AutenticacaoJWTFactory::class,
                 UsuarioAutenticacaoRepositorio::class => UsuarioAutenticacaoRepositorioFactory::class,
+                // Contato
+                ContatoService::class => ContatoServicoFactory::class,
+                CadastrarContatoAcao::class => ContatoAcaoFactory::class,
+                ObterContatoAcao::class => ContatoAcaoFactory::class,
+                ListarContatoAcao::class => ContatoAcaoFactory::class,
+                AtualizarContatoAcao::class => ContatoAcaoFactory::class,
+                ExcluirContatoAcao::class => ContatoAcaoFactory::class,
             ],
         ];
     }
@@ -79,8 +94,8 @@ class ConfigProvider
     {
         return [
             'paths' => [
-                'app'    => [__DIR__ . '/../templates/app'],
-                'error'  => [__DIR__ . '/../templates/error'],
+                'app' => [__DIR__ . '/../templates/app'],
+                'error' => [__DIR__ . '/../templates/error'],
                 'layout' => [__DIR__ . '/../templates/layout'],
             ],
         ];

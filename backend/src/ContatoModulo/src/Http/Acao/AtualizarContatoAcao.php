@@ -3,33 +3,33 @@ declare(strict_types=1);
 
 namespace ContatoModulo\Http\Acao;
 
-use ContatoModulo\Aplicacao\Usuario\UsuarioServico;
+use ContatoModulo\Aplicacao\Contato\ContatoService;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
 
 /**
- * Class CadastrarUsuarioAcao
+ * Class AtualizarContatoAcao
  *
- * @package ContatoModulo\Aplicacao\Http\Acao
+ * @package ContatoModulo\Http\Acao
  * @author Alex Gomes <alexrsg@gmail.com>
  */
-class CadastrarUsuarioAcao implements MiddlewareInterface
+class AtualizarContatoAcao implements MiddlewareInterface
 {
     /**
-     * @var UsuarioServico
+     * @var ContatoService
      */
-    private $usuarioServico;
+    protected $servico;
 
     /**
-     * CadastrarUsuarioAcao constructor.
+     * AtualizarContatoAcao constructor.
      *
-     * @param UsuarioServico $usuarioServico
+     * @param ContatoService $contatoService
      */
-    public function __construct(UsuarioServico $usuarioServico)
+    public function __construct(ContatoService $contatoService)
     {
-        $this->usuarioServico = $usuarioServico;
+        $this->servico = $contatoService;
     }
 
     public function process(
@@ -38,7 +38,7 @@ class CadastrarUsuarioAcao implements MiddlewareInterface
     ) {
         try {
 
-            return new JsonResponse($this->usuarioServico->adicionarUsuario($request->getParsedBody()));
+            return new JsonResponse($this->servico->editarContato($request->getAttribute('id'), $request->getParsedBody()));
         } catch (\Exception $e) {
             return new JsonResponse(['message' => $e->getMessage()], 400);
         }

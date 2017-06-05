@@ -30,7 +30,6 @@
 $app->get('/api/ping', App\Action\PingAction::class, 'api.ping');
 
 // Usuários
-
 $app->get('/usuarios', ContatoModulo\Http\Acao\ListarUsuarioAcao::class, 'usuarios');
 $app->get('/usuarios/{id}', ContatoModulo\Http\Acao\ObterUsuarioAcao::class, 'usuarios.get');
 $app->post('/usuarios', ContatoModulo\Http\Acao\CadastrarUsuarioAcao::class, 'usuarios.create');
@@ -39,3 +38,10 @@ $app->delete('/usuarios/{id}', ContatoModulo\Http\Acao\ExcluirUsuarioAcao::class
 
 // Login
 $app->post('/auth/login', \ContatoModulo\Http\Acao\LoginAcao::class, 'login');
+
+// Contatos
+$app->get('/contatos', ContatoModulo\Http\Acao\ListarContatoAcao::class, 'contatos');
+$app->get('/contatos/{id}', ContatoModulo\Http\Acao\ObterContatoAcao::class, 'contatos.get');
+$app->post('/contatos', ContatoModulo\Http\Acao\CadastrarContatoAcao::class, 'contatos.create');
+$app->put('/contatos/{id}', ContatoModulo\Http\Acao\AtualizarContatoAcao::class, 'contatos.put');
+$app->delete('/contatos/{id}', ContatoModulo\Http\Acao\ExcluirContatoAcao::class, 'contatos.delete');

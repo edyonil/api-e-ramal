@@ -3,29 +3,29 @@ declare(strict_types=1);
 
 namespace ContatoModulo\Http\Acao;
 
-use ContatoModulo\Aplicacao\Usuario\UsuarioServico;
+use ContatoModulo\Aplicacao\Contato\ContatoService;
 use Interop\Container\ContainerInterface;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
- * Class UsuarioAcaoFactory
+ * Class ContatoAcaoFactory
  *
- * @package ContatoModulo\Aplicacao\Acao
+ * @package ContatoModulo\Http\Acao
  * @author Alex Gomes <alexrsg@gmail.com>
  */
-class UsuarioAcaoFactory implements FactoryInterface
+class ContatoAcaoFactory implements FactoryInterface
 {
     /**
      * @param ContainerInterface $container
      * @param string $requestedName
-     * @param null|array $options
-     * @return UsuarioServico
+     * @param array|null $options
+     * @return mixed
      */
     public function __invoke(
         ContainerInterface $container,
         $requestedName,
         array $options = null
     ) {
-        return new $requestedName($container->get(UsuarioServico::class));
+        return new $requestedName($container->get(ContatoService::class));
     }
 }

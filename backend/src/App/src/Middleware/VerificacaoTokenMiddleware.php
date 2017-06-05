@@ -46,7 +46,7 @@ class VerificacaoTokenMiddleware implements MiddlewareInterface
             return false;
         }
 
-        list($token) = sscanf($input['0'], 'Bearer %s');
+        list($token) = sscanf($input[0], 'Bearer %s');
 
         if (is_null($token)) {
             return false;

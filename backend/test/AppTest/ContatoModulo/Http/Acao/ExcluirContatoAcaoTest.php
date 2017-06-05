@@ -3,24 +3,22 @@ declare(strict_types=1);
 
 namespace AppTest\ContatoModulo\Http\Acao;
 
-use ContatoModulo\Http\Acao\ExcluirUsuarioAcao;
-use ContatoModulo\Aplicacao\Usuario\UsuarioServico;
+use ContatoModulo\Aplicacao\Contato\ContatoService;
+use ContatoModulo\Http\Acao\ExcluirContatoAcao;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\JsonResponse;
 
 /**
- * Class ExcluirUsuarioAcaoTest
+ * Class ExcluirContatoAcaoTest
  *
- * @package AppTest\ContatoModulo\Aplicacao\Http\Acao
- * @author Alex Gomes <alexrsg@gmail.com>
- *
+ * @package AppTest\ContatoModulo\Http\Acao
  * @group ContatoModulo
  */
-class ExcluirUsuarioAcaoTest extends TestCase
+class ExcluirContatoAcaoTest extends TestCase
 {
-    public function testExcluirUsuarioAPartirDoId()
+    public function testExcluirUmContato()
     {
         $id = 1;
         $output = true;
@@ -28,16 +26,18 @@ class ExcluirUsuarioAcaoTest extends TestCase
         $request = $this->prophesize(ServerRequestInterface::class);
         $request->getAttribute('id')->willReturn($id)->shouldBeCalled();
 
-        $servico = $this->prophesize(UsuarioServico::class);
-        $servico->excluirUsuario($id)->willReturn($output)->shouldBeCalled();
+        $delegate = $this->prophesize(DelegateInterface::class);
 
-        $acao = new ExcluirUsuarioAcao($servico->reveal());
+        $servico = $this->prophesize(ContatoService::class);
+        $servico->excluirContato($id)->willReturn($output)->shouldBeCalled();
+
+        $acao = new ExcluirContatoAcao($servico->reveal());
         $response = $acao->process(
             $request->reveal(),
-            $this->prophesize(DelegateInterface::class)->reveal()
+            $delegate->reveal()
         );
 
-        $resultado = json_decode((string)$response->getBody());
+        $resultado = (array)json_decode((string)$response->getBody());
 
         $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertEquals([$output], $resultado);
