@@ -39,15 +39,13 @@ class VerificacaoTokenMiddleware implements MiddlewareInterface
                 return $delegate->process($request);
             }
 
-            if ($this->validarToken($request)) {
-                $request = $request->withAttribute('token', $this->token);
-            } else {
-                $request = $request->withAttribute('erro', 'Token não informado.');
-            }
+            $this->validarToken($request);
+
+            $request = $request->withAttribute('token', $this->token);
 
             return $delegate->process($request);
         } catch (\Exception $e) {
-            return new JsonResponse([$e->getMessage()], 400);
+            return new JsonResponse(['message' => $e->getMessage()], 400);
         }
     }
 
@@ -55,25 +53,26 @@ class VerificacaoTokenMiddleware implements MiddlewareInterface
      * Valida o token informado
      *
      * @param ServerRequestInterface $request
-     * @return bool
+     * @return \stdClass
+     * @throws \Exception
      */
-    protected function validarToken(ServerRequestInterface $request): bool
+    protected function validarToken(ServerRequestInterface $request): \stdClass
     {
         $input = $request->getHeader('authorization');
 
         if (empty($input)) {
-            return false;
+            throw new \Exception('Token não informado.');
         }
 
         list($this->token) = sscanf($input[0], 'Bearer %s');
 
         if (is_null($this->token)) {
-            return false;
+            throw new \Exception('Dados do token inválidos.');
         }
 
         $jwt = new AutenticacaoJWT();
 
-        return $jwt->extrairDados($this->token) ? true : false;
+        return $jwt->extrairDados($this->token);
     }
 
     /**

@@ -23,7 +23,7 @@ class VerificacaoTokenMiddlewareTest extends TestCase
         $tokenTeste = $this->getToken();
 
         $outputRequest = [
-            "Bearer {$tokenTeste['token']}"
+            "Bearer {$tokenTeste}"
         ];
 
         $route = $this->prophesize(RouteResult::class);
@@ -40,7 +40,7 @@ class VerificacaoTokenMiddlewareTest extends TestCase
             ->willReturn($outputRequest)
             ->shouldBeCalled();
 
-        $request->withAttribute('token', $tokenTeste['token'])
+        $request->withAttribute('token', $tokenTeste)
             ->willReturn($request->reveal())
             ->shouldBeCalled();
 
@@ -56,13 +56,13 @@ class VerificacaoTokenMiddlewareTest extends TestCase
     /**
      * Obtém um token de teste
      *
-     * @return array
+     * @return string
      */
-    protected function getToken(): array
+    protected function getToken(): string
     {
         $autenticacao = new AutenticacaoJWT();
 
-        return $autenticacao->getToken($this->getUsuario());
+        return $autenticacao->getToken($this->getUsuario())['token'];
     }
 
     /**
