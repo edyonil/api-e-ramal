@@ -43,7 +43,10 @@ class ListarContatoAcao implements MiddlewareInterface
     ) {
         try {
 
-            return new JsonResponse($this->servico->listarContato($request->getQueryParams()));
+            $input = $request->getQueryParams();
+            $input['token'] = $request->getAttribute('token');
+
+            return new JsonResponse($this->servico->listarContato($input));
         } catch (\Exception $e) {
             return new JsonResponse(['message' => $e->getMessage()], 400);
         }

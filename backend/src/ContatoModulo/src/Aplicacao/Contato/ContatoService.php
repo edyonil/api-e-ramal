@@ -18,7 +18,6 @@ use ContatoModulo\Modelo\Contato;
  */
 class ContatoService
 {
-
     /**
      * Repositorio
      *
@@ -43,7 +42,6 @@ class ContatoService
         RepositorioInterface $repositorio,
         AutenticacaoInterface $autenticacao
     ) {
-
         $this->repositorio = $repositorio;
         $this->autenticacao = $autenticacao;
     }
@@ -59,7 +57,6 @@ class ContatoService
      */
     public function adicionarContato(array $input): array
     {
-
         $contato = new Contato();
         $usuario = $this->autenticacao->obterUsuarioAutenticado($input['token']);
         $contato->setNome($input['nome'])
@@ -84,7 +81,6 @@ class ContatoService
      */
     public function editarContato(int $id, array $input): array
     {
-
         $contato = $this->repositorio->encontrar($id);
 
         $usuario = $this->autenticacao->obterUsuarioAutenticado($input['token']);
@@ -108,6 +104,7 @@ class ContatoService
     public function localizarContato(int $id): array
     {
         $contato = $this->repositorio->encontrar($id);
+
         return $contato->toArray();
     }
 
@@ -131,7 +128,7 @@ class ContatoService
             $retorno['total'] = 0;
 
             return $retorno;
-        };
+        }
 
         foreach ($contato as $item) {
             $retorno['itens'][] = $item->toArray();

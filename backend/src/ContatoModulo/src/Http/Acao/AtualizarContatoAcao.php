@@ -32,13 +32,22 @@ class AtualizarContatoAcao implements MiddlewareInterface
         $this->servico = $contatoService;
     }
 
+    /**
+     * @param ServerRequestInterface $request
+     * @param DelegateInterface $delegate
+     * @return JsonResponse
+     */
     public function process(
         ServerRequestInterface $request,
         DelegateInterface $delegate
     ) {
         try {
 
-            return new JsonResponse($this->servico->editarContato($request->getAttribute('id'), $request->getParsedBody()));
+            $input = $request->getParsedBody();
+            $input['id'] = (int)$request->getAttribute('id');
+            $input['token'] = $request->getAttribute('token');
+
+            return new JsonResponse($this->servico->editarContato($input['id'], $input));
         } catch (\Exception $e) {
             return new JsonResponse(['message' => $e->getMessage()], 400);
         }

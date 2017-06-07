@@ -12,36 +12,56 @@ use ContatoModulo\Aplicacao\Excecao\UsuarioException;
 use ContatoModulo\Infraestrutura\Persistencia\Repositorio\Usuario\UsuarioAutenticacaoRepositorio;
 use ContatoModulo\Modelo\Usuario;
 
+/**
+ * Class AutenticacaoService
+ *
+ * @package ContatoModulo\Aplicacao\Autenticacao
+ */
 class AutenticacaoService implements AutenticacaoInterface
 {
-
     /**
      * @var TipoAutenticacaoInterface
      */
     private $tipoAutenticacao;
+
     /**
      * @var UsuarioAutenticacaoRepositorio
      */
     private $usuarioAutenticacaoRepositorio;
 
-    public function __construct(TipoAutenticacaoInterface $tipoAutenticacao
-    , UsuarioAutenticacaoRepositorio $usuarioAutenticacaoRepositorio)
-    {
+    /**
+     * AutenticacaoService constructor.
+     *
+     * @param TipoAutenticacaoInterface $tipoAutenticacao
+     * @param UsuarioAutenticacaoRepositorio $usuarioAutenticacaoRepositorio
+     */
+    public function __construct(
+        TipoAutenticacaoInterface $tipoAutenticacao,
+        UsuarioAutenticacaoRepositorio $usuarioAutenticacaoRepositorio
+    ) {
         $this->tipoAutenticacao = $tipoAutenticacao;
         $this->usuarioAutenticacaoRepositorio = $usuarioAutenticacaoRepositorio;
     }
 
+    /**
+     * @param string $token
+     * @return Usuario
+     */
     public function obterUsuarioAutenticado(string $token): Usuario
     {
         $dadosUsuario = $this->tipoAutenticacao->extrairDados($token);
 
-        return $this->usuarioAutenticacaoRepositorio
-        ->encontrar($dadosUsuario->data->id);
+        return $this->usuarioAutenticacaoRepositorio->encontrar($dadosUsuario->data->id);
     }
 
+    /**
+     * @param string $email
+     * @param string $password
+     * @return array
+     * @throws UsuarioException
+     */
     public function login(string $email, string $password): array
     {
-
         $usuario = $this->usuarioAutenticacaoRepositorio
             ->getUsuario($email, $password);
 

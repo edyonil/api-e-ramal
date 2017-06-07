@@ -32,13 +32,21 @@ class CadastrarContatoAcao implements MiddlewareInterface
         $this->service = $contatoService;
     }
 
+    /**
+     * @param ServerRequestInterface $request
+     * @param DelegateInterface $delegate
+     * @return JsonResponse
+     */
     public function process(
         ServerRequestInterface $request,
         DelegateInterface $delegate
     ) {
         try {
 
-            return new JsonResponse($this->service->adicionarContato($request->getParsedBody()));
+            $input = $request->getParsedBody();
+            $input['token'] = $request->getAttribute('token');
+
+            return new JsonResponse($this->service->adicionarContato($input));
         } catch (\Exception $e) {
             return new JsonResponse(['message' => $e->getMessage()], 400);
         }

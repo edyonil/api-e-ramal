@@ -7,6 +7,7 @@ use Zend\Expressive\Middleware\ImplicitOptionsMiddleware;
 use Zend\Expressive\Middleware\NotFoundHandler;
 use Zend\Stratigility\Middleware\ErrorHandler;
 use Zend\Expressive\Helper\BodyParams\BodyParamsMiddleware;
+use App\Middleware\VerificacaoTokenMiddleware;
 
 /**
  * Setup middleware pipeline:
@@ -54,7 +55,7 @@ $app->pipe(ImplicitHeadMiddleware::class);
 $app->pipe(ImplicitOptionsMiddleware::class);
 $app->pipe(UrlHelperMiddleware::class);
 
-// $app->pipe(\App\Middleware\VerificacaoTokenMiddleware::class);
+$app->pipe(VerificacaoTokenMiddleware::class);
 
 
 // Add more middleware here that needs to introspect the routing results; this

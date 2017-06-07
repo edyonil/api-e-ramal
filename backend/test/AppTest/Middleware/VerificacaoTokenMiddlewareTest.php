@@ -9,7 +9,7 @@ use ContatoModulo\Modelo\Usuario;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ServerRequestInterface;
-use Zend\Diactoros\Response\JsonResponse;
+use Zend\Expressive\Router\RouteResult;
 
 /**
  * Class VerificacaoTokenMiddlewareTest
@@ -26,8 +26,23 @@ class VerificacaoTokenMiddlewareTest extends TestCase
             "Bearer {$tokenTeste['token']}"
         ];
 
+        $route = $this->prophesize(RouteResult::class);
+        $route->getMatchedMiddleware()
+            ->willReturn(VerificacaoTokenMiddleware::class)
+            ->shouldBeCalled();
+
         $request = $this->prophesize(ServerRequestInterface::class);
-        $request->getHeader('authorization')->willReturn($outputRequest)->shouldBeCalled();
+        $request->getAttribute(RouteResult::class, false)
+            ->willReturn($route->reveal())
+            ->shouldBeCalled();
+
+        $request->getHeader('authorization')
+            ->willReturn($outputRequest)
+            ->shouldBeCalled();
+
+        $request->withAttribute('token', $tokenTeste['token'])
+            ->willReturn($request->reveal())
+            ->shouldBeCalled();
 
         $delegate = $this->prophesize(DelegateInterface::class);
         $delegate->process($request->reveal())->willReturn($request->reveal())->shouldBeCalled();

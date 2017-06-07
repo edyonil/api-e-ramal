@@ -37,9 +37,16 @@ class AtualizarContatoAcaoTest extends TestCase
             'deletedAt' => '',
         ];
 
+        $token = $this->getToken();
+
         $request = $this->prophesize(ServerRequestInterface::class);
+
         $request->getParsedBody()->willReturn($input)->shouldBeCalled();
         $request->getAttribute('id')->willReturn($output['id'])->shouldBeCalled();
+        $request->getAttribute('token')->willReturn($token)->shouldBeCalled();
+
+        $input['id'] = $output['id'];
+        $input['token'] = $token;
 
         $servico = $this->prophesize(ContatoService::class);
         $servico->editarContato($output['id'], $input)->willReturn($output)->shouldBeCalled();
@@ -58,7 +65,17 @@ class AtualizarContatoAcaoTest extends TestCase
     }
 
     /**
-     * Obtém o usuário de teste
+     * Obtém um token de teste
+     *
+     * @return string
+     */
+    protected function getToken(): string
+    {
+        return 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTY4Njg3NzMsImV4cCI6MTQ5Njg3MjM3MywibmJmIjoxNDk2ODY4NzcyLCJkYXRhIjp7ImlkIjpudWxsLCJlbWFpbCI6ImFsZXhyc2dAZ21haWwuY29tIn19._ZPkksjSbTTBqS7xFh_r3AlIJ2LzLaayt9qUXW3lmmY';
+    }
+
+    /**
+     * Inicializa um usuário de teste
      *
      * @return array
      */

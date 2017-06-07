@@ -31,10 +31,15 @@ class ListarContatoAcaoTest extends TestCase
             'total' => 3,
         ];
 
+        $token = $this->getToken();
+
         $request = $this->prophesize(ServerRequestInterface::class);
         $request->getQueryParams()->willReturn($input)->shouldBeCalled();
+        $request->getAttribute('token')->willReturn($token)->shouldBeCalled();
 
         $delegate = $this->prophesize(DelegateInterface::class);
+
+        $input['token'] = $token;
 
         $servico = $this->prophesize(ContatoService::class);
         $servico->listarContato($input)->willReturn($output)->shouldBeCalled();
@@ -54,7 +59,7 @@ class ListarContatoAcaoTest extends TestCase
     /**
      * @return array
      */
-    protected function getContato()
+    protected function getContato(): array
     {
         return [
             'id' => 1,
@@ -66,6 +71,18 @@ class ListarContatoAcaoTest extends TestCase
     }
 
     /**
+     * Obtém um token de teste
+     *
+     * @return string
+     */
+    protected function getToken(): string
+    {
+        return 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE0OTY4Njg3NzMsImV4cCI6MTQ5Njg3MjM3MywibmJmIjoxNDk2ODY4NzcyLCJkYXRhIjp7ImlkIjpudWxsLCJlbWFpbCI6ImFsZXhyc2dAZ21haWwuY29tIn19._ZPkksjSbTTBqS7xFh_r3AlIJ2LzLaayt9qUXW3lmmY';
+    }
+
+    /**
+     * Inicializa um usuário de teste
+     *
      * @return array
      */
     protected function getUsuario(): array
