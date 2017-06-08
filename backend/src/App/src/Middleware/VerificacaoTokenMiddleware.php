@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Middleware;
 
 use ContatoModulo\Aplicacao\Autenticacao\AutenticacaoJWT;
-use ContatoModulo\Http\Acao\LoginAcao;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -83,7 +82,7 @@ class VerificacaoTokenMiddleware implements MiddlewareInterface
     {
         $route = $request->getAttribute(RouteResult::class, false);
 
-        if ($route && $route->getMatchedMiddleware() == LoginAcao::class) {
+        if ($route && $route->getMatchedRouteName() == 'login') {
             return true;
         }
 

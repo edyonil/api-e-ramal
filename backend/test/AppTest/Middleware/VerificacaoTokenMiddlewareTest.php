@@ -27,8 +27,8 @@ class VerificacaoTokenMiddlewareTest extends TestCase
         ];
 
         $route = $this->prophesize(RouteResult::class);
-        $route->getMatchedMiddleware()
-            ->willReturn(VerificacaoTokenMiddleware::class)
+        $route->getMatchedRouteName()
+            ->willReturn('api/ping')
             ->shouldBeCalled();
 
         $request = $this->prophesize(ServerRequestInterface::class);
