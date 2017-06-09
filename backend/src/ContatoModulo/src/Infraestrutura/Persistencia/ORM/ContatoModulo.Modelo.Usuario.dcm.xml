@@ -7,6 +7,7 @@
     <id name="id" type="integer" column="id">
       <generator strategy="AUTO"/>
     </id>
+    <field name="nome" type="string" column="nome" length="255" />
     <field name="email" type="string" column="email" length="255"/>
     <field name="ativo" type="boolean" column="ativo">
       <options>
@@ -34,6 +35,5 @@
     <one-to-many target-entity="ContatoModulo\Modelo\Contato"
                  mapped-by="usuario"
                  field="listaContato" />
-
   </entity>
 </doctrine-mapping>

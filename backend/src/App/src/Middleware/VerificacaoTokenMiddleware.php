@@ -75,6 +75,8 @@ class VerificacaoTokenMiddleware implements MiddlewareInterface
     }
 
     /**
+     * Verifica se o rota chamada é de login
+     *
      * @param ServerRequestInterface $request
      * @return bool
      */

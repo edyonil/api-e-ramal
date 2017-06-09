@@ -10,6 +10,7 @@
 
     <field name="nome" column="nome" length="255" />
     <field name="setor" column="setor" length="255" />
+    <field name="ramalOuTelefone" column="ramal_telefone" length="255" />
 
     <field name="createdAt" type="datetime" column="created_at"
            column-definition="timestamp default current_timestamp">

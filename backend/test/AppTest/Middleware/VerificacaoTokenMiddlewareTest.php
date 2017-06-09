@@ -23,7 +23,7 @@ class VerificacaoTokenMiddlewareTest extends TestCase
         $tokenTeste = $this->getToken();
 
         $outputRequest = [
-            "Bearer {$tokenTeste}"
+            "Bearer {$tokenTeste}",
         ];
 
         $route = $this->prophesize(RouteResult::class);
