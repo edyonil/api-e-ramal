@@ -134,7 +134,7 @@ class ContatoService
             $retorno['itens'][] = $item->toArray();
         }
 
-        $retorno['total'] = $retorno['itens'];
+        $retorno['total'] = count($retorno['itens']);
 
         return $retorno;
     }
