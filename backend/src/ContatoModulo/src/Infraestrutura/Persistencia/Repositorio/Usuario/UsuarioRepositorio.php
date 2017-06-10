@@ -25,6 +25,9 @@ class UsuarioRepositorio implements RepositorioInterface
      */
     private $modelo;
 
+    /**
+     * @var array
+     */
     private $fields = [
         'email',
         'nome',
@@ -45,6 +48,10 @@ class UsuarioRepositorio implements RepositorioInterface
         $this->modelo = Usuario::class;
     }
 
+    /**
+     * @param ModeloInterface $modelo
+     * @return ModeloInterface
+     */
     public function adicionar(ModeloInterface $modelo): ModeloInterface
     {
         $this->entityManager->persist($modelo);
@@ -53,6 +60,11 @@ class UsuarioRepositorio implements RepositorioInterface
         return $modelo;
     }
 
+    /**
+     * @param int $id
+     * @return ModeloInterface
+     * @throws \Exception
+     */
     public function encontrar(int $id): ModeloInterface
     {
         $usuario = $this->entityManager->getRepository($this->modelo)->findOneBy([
@@ -67,6 +79,10 @@ class UsuarioRepositorio implements RepositorioInterface
         return $usuario;
     }
 
+    /**
+     * @param ModeloInterface $modelo
+     * @return ModeloInterface
+     */
     public function atualizar(ModeloInterface $modelo): ModeloInterface
     {
         $modelo->setUpdatedAt(new \DateTime());
@@ -77,6 +93,10 @@ class UsuarioRepositorio implements RepositorioInterface
         return $modelo;
     }
 
+    /**
+     * @param ModeloInterface $modelo
+     * @return bool
+     */
     public function excluir(ModeloInterface $modelo): bool
     {
         $modelo->setDeletedAt(new \DateTime());
@@ -87,14 +107,18 @@ class UsuarioRepositorio implements RepositorioInterface
         return true;
     }
 
+    /**
+     * @param array $parametros
+     * @return array
+     */
     public function listar(array $parametros): array
     {
         $filtros = [];
 
         if (!empty($parametros)) {
             foreach ($this->fields as $f) {
-                if (isset($parametros[$f])) {
-                    $filtros[$f] = $parametros[$f];
+                if (isset($parametros['filtro'][$f])) {
+                    $filtros[$f] = $parametros['filtro'][$f];
                 }
             }
         }
