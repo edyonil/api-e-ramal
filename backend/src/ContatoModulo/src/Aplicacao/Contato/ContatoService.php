@@ -60,7 +60,7 @@ class ContatoService
         $contato = new Contato();
         $usuario = $this->autenticacao->obterUsuarioAutenticado($input['token']);
         $contato->setNome($input['nome'])
-            ->setSetor($input['setor'])
+            ->setSetor(mb_strtoupper($input['setor'], 'utf-8'))
             ->setRamalOuTelefone($input['ramalOuTelefone'])
             ->setUsuario($usuario);
 
@@ -86,7 +86,7 @@ class ContatoService
         $usuario = $this->autenticacao->obterUsuarioAutenticado($input['token']);
 
         $contato->setNome($input['nome'])
-            ->setSetor($input['setor'])
+            ->setSetor(mb_strtoupper($input['setor'], 'utf-8'))
             ->setRamalOuTelefone($input['ramalOuTelefone'])
             ->setUsuario($usuario);
 

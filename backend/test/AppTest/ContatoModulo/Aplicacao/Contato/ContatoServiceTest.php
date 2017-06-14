@@ -400,7 +400,7 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
         $localizado = $contatoServico->listarContato($input);
 
         $this->assertEquals($localizado['itens'], $contatoRetorno);
-        $this->assertCount(3, $localizado['total']);
+        $this->assertCount(3, $localizado['itens']);
     }
 
     public function testListarContatosVazios()

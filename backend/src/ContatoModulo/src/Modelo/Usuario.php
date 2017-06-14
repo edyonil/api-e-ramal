@@ -48,7 +48,7 @@ class Usuario implements ModeloInterface
     private $compartilharContatos = true;
 
     /**
-     * @var null
+     * @var ArrayCollection|null
      */
     private $listaContato = null;
 
@@ -293,5 +293,13 @@ class Usuario implements ModeloInterface
         $this->deletedAt = $deletedAt;
 
         return $this;
+    }
+
+    /**
+     * @return null
+     */
+    public function getListaContatos()
+    {
+        return $this->listaContato;
     }
 }

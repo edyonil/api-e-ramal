@@ -1,13 +1,12 @@
 <?php
+declare(strict_types=1);
 /**
  * Created by PhpStorm.
  * User: ediaimoborges
  * Date: 27/04/17
  * Time: 15:53
  */
-
 namespace ContatoModulo\Infraestrutura\Persistencia\Repositorio\Contato;
-
 
 use ContatoModulo\Infraestrutura\Persistencia\Repositorio\RepositorioInterface;
 use ContatoModulo\Modelo\Contato;
@@ -68,15 +67,13 @@ class ContatoRepositorio implements RepositorioInterface
     {
         $contato = $this->entityManager
             ->getRepository($this->modelo)
-            ->findOneBy(
-                [
-                    'id' => $id,
-                    'deletedAt' => null
-                ]
-            );
+            ->findOneBy([
+                'id' => $id,
+                'deletedAt' => null,
+            ]);
 
         if ($contato === null) {
-            throw new NoResultException('Registro não encontrado');
+            throw new NoResultException('Registro não encontrado.');
         }
 
         return $contato;
@@ -115,21 +112,33 @@ class ContatoRepositorio implements RepositorioInterface
      */
     public function listar(array $parametros): array
     {
-        $filtros = [];
+        $select = "SELECT c FROM {$this->modelo} c";
+        $where = $filtros = "";
 
         if (!empty($parametros)) {
-            foreach ($this->fields as $f) {
+            foreach ($this->fields as $k => $f) {
                 if (isset($parametros['filtro'][$f])) {
-                    $filtros[$f] = $parametros['filtro'][$f];
+                    $filtros .= ($filtros != "") ? " OR " : "";
+                    $filtros .= "c.{$f} LIKE :{$f}";
                 }
             }
         }
 
-        $filtros['deletedAt'] = null;
-        $filtros['usuario'] = $parametros['usuario'];
+        $where = "WHERE c.deletedAt IS NULL AND c.usuario = {$parametros['usuario']}";
+        $where .= ($filtros != "") ? " AND ({$filtros})" : "";
 
-        $contato = $this->entityManager->getRepository($this->modelo)->findBy($filtros);
+        $query = $this->entityManager->createQuery("{$select} {$where}");
 
-        return $contato === null ? [] : $contato;
+        if ($filtros != "") {
+            foreach ($this->fields as $k => $f) {
+                if (isset($parametros['filtro'][$f])) {
+                    $query->setParameter($f, "%{$parametros['filtro'][$f]}%");
+                }
+            }
+        }
+
+        $resultado = $query->getResult();
+
+        return $resultado === null ? [] : $resultado;
     }
 }

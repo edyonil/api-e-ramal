@@ -14,7 +14,7 @@ use \Firebase\JWT\JWT;
 class AutenticacaoJWT implements TipoAutenticacaoInterface
 {
     private $chave = '7Fsxc2A865V6'; // chave
-    private $expiracao = 3600;
+    private $expiracao = 86400;
 
     private $criptografia = 'HS256';
 

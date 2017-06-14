@@ -135,6 +135,8 @@ class Contato implements ModeloInterface
      */
     public function setUsuario(Usuario $usuario): Contato
     {
+        $usuario->setListaContatos($this);
+
         $this->usuario = $usuario;
 
         return $this;
