@@ -13,6 +13,7 @@
         "doctrine/orm": "^2.5",
         "firebase/php-jwt": "^4.0",
         "los/los-cors": "^1.0",
+        "phpoffice/phpexcel": "^1.8",
         "roave/security-advisories": "dev-master",
         "tuupola/cors-middleware": "^0.5.2",
         "zendframework/zend-component-installer": "^1.0 || ^0.7.0",

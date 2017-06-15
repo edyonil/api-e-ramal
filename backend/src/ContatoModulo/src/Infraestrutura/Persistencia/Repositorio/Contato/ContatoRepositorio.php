@@ -113,27 +113,24 @@ class ContatoRepositorio implements RepositorioInterface
     public function listar(array $parametros): array
     {
         $select = "SELECT c FROM {$this->modelo} c";
-        $where = $filtros = "";
+        $filtros = "";
 
-        if (!empty($parametros)) {
+        $where = "WHERE c.deletedAt IS NULL AND c.usuario = {$parametros['usuario']}";
+
+        if (isset($parametros['filtro']) && $parametros['filtro'] != "") {
             foreach ($this->fields as $k => $f) {
-                if (isset($parametros['filtro'][$f])) {
-                    $filtros .= ($filtros != "") ? " OR " : "";
-                    $filtros .= "c.{$f} LIKE :{$f}";
-                }
+                $filtros .= ($filtros != "") ? " OR " : "";
+                $filtros .= "c.{$f} LIKE :{$f}";
             }
         }
 
-        $where = "WHERE c.deletedAt IS NULL AND c.usuario = {$parametros['usuario']}";
         $where .= ($filtros != "") ? " AND ({$filtros})" : "";
 
         $query = $this->entityManager->createQuery("{$select} {$where}");
 
         if ($filtros != "") {
             foreach ($this->fields as $k => $f) {
-                if (isset($parametros['filtro'][$f])) {
-                    $query->setParameter($f, "%{$parametros['filtro'][$f]}%");
-                }
+                $query->setParameter($f, "%{$parametros['filtro']}%");
             }
         }
 
