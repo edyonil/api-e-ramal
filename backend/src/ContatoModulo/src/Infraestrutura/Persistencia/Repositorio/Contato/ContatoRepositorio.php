@@ -113,6 +113,7 @@ class ContatoRepositorio implements RepositorioInterface
     public function listar(array $parametros): array
     {
         $select = "SELECT c FROM {$this->modelo} c";
+        $orderBy = "ORDER BY c.nome ASC";
         $filtros = "";
 
         $where = "WHERE c.deletedAt IS NULL AND c.usuario = {$parametros['usuario']}";
@@ -126,7 +127,7 @@ class ContatoRepositorio implements RepositorioInterface
 
         $where .= ($filtros != "") ? " AND ({$filtros})" : "";
 
-        $query = $this->entityManager->createQuery("{$select} {$where}");
+        $query = $this->entityManager->createQuery("{$select} {$where} {$orderBy}");
 
         if ($filtros != "") {
             foreach ($this->fields as $k => $f) {
