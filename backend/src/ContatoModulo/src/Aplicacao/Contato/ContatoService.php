@@ -130,8 +130,9 @@ class ContatoService
             return $retorno;
         }
 
-        foreach ($contato as $item) {
-            $retorno['itens'][] = $item->toArray();
+        foreach ($contato as $k => $item) {
+            $retorno['itens'][$k] = $item->toArray();
+            $retorno['itens'][$k]['ordem'] = $k + 1;
         }
 
         $retorno['total'] = count($retorno['itens']);
