@@ -16,7 +16,7 @@ class LeitorArquivoExcelTest extends TestCase
 {
     public function testLerOConteudoDeUmArquivoExcel()
     {
-        $arquivo = __DIR__ . "/../../../../../public/storage/importacao-e-ramal.xlsx";
+        $arquivo = __DIR__ . "/../../../../../public/importacao-e-ramal.xlsx";
 
         $output = [
             [
