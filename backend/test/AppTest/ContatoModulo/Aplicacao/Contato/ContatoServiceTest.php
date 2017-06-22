@@ -1,11 +1,11 @@
 <?php
+declare(strict_types=1);
 /**
  * Created by PhpStorm.
  * User: ediaimoborges
  * Date: 14/04/17
  * Time: 19:04
  */
-
 namespace AppTest\ContatoModulo\Aplicacao\Contato;
 
 use ContatoModulo\Aplicacao\Autenticacao\AutenticacaoInterface;
@@ -17,6 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Class ContatoServiceTest
+ *
  * @package AppTest\ContatoModulo
  * @group   ContatoModulo
  */
@@ -24,7 +25,6 @@ class ContatoServiceTest extends TestCase
 {
     public function testCriacaoDeUmContato()
     {
-
         // Input do form
         $contato = [
             'nome'            => 'Edy',
@@ -78,7 +78,6 @@ class ContatoServiceTest extends TestCase
             ->setSetor($contatoRetorno['setor'])
             ->setUsuario($usuario);
 
-
         $modeloRetorno = clone $modelo;
 
         $modeloRetorno->setCreatedAt($this->criarDataCadastro())
@@ -104,12 +103,10 @@ class ContatoServiceTest extends TestCase
         $add = $contatoServico->adicionarContato($contato);
 
         $this->assertEquals($add, $contatoRetorno);
-
     }
 
     public function testEdicaoDeUmContato()
     {
-
         $id = 1;
         // Input do form
         $contato = [
@@ -158,7 +155,7 @@ class ContatoServiceTest extends TestCase
             ->setUpdatedAt($this->criarDataCadastro())
             ->setDeletedAt($dataUsuario['deletedAt']);
 
-        //Para o repositorio
+        // Para o repositorio
         $modelo = new Contato();
         $modelo->setNome($contatoRetorno['nome'])
             ->setRamalOuTelefone($contatoRetorno['ramalOuTelefone'])
@@ -192,11 +189,9 @@ class ContatoServiceTest extends TestCase
             $autenticacao->reveal()
         );
 
-
         $add = $contatoServico->editarContato($id, $contato);
 
         $this->assertEquals($add, $contatoRetorno);
-
     }
 
     public function testLocalizandoUmContato()
@@ -244,7 +239,7 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
             ->setUpdatedAt($this->criarDataCadastro())
             ->setDeletedAt($dataUsuario['deletedAt']);
 
-        //Para o repositorio
+        // Para o repositorio
         $modelo = new Contato();
         $modelo->setNome($contatoRetorno['nome'])
             ->setRamalOuTelefone($contatoRetorno['ramalOuTelefone'])
@@ -275,7 +270,6 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
 
     public function testListarContatosComPaginacao()
     {
-
         $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
 .eyJpYXQiOjE0NzA2MDczMDAsImlzcyI6ImRvdWdsYXNwYXNxdWEuY29tIiwiZXhwIjox
 NDcwNjEwOTAwLCJuYmYiOjE0NzA2MDcyOTksImRhdGEiOnsiaWQiOjEsIm5hbWUiOiJEb3
@@ -287,6 +281,7 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
                 'nome'            => 'Edy',
                 'setor'           => 'SUOPE',
                 'ramalOuTelefone' => '3411',
+                'ordem'           => 1,
                 'createdAt'       => '03/12/2015 00:00:00',
                 'updatedAt'       => '10/12/2015 00:00:00',
                 'deletedAt'       => null,
@@ -307,6 +302,7 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
                 'nome'            => 'Edy',
                 'setor'           => 'SUOPE',
                 'ramalOuTelefone' => '3411',
+                'ordem'           => 2,
                 'createdAt'       => '03/12/2015 00:00:00',
                 'updatedAt'       => '10/12/2015 00:00:00',
                 'deletedAt'       => null,
@@ -327,6 +323,7 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
                 'nome'            => 'Edy',
                 'setor'           => 'SUOPE',
                 'ramalOuTelefone' => '3411',
+                'ordem'           => 3,
                 'createdAt'       => '03/12/2015 00:00:00',
                 'updatedAt'       => '10/12/2015 00:00:00',
                 'deletedAt'       => null,
@@ -358,7 +355,7 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
             ->setUpdatedAt($this->criarDataCadastro())
             ->setDeletedAt($dataUsuario['deletedAt']);
 
-        //Para o repositorio
+        // Para o repositorio
         $modelo = new Contato();
         $modelo->setNome($contatoRetorno[0]['nome'])
             ->setRamalOuTelefone($contatoRetorno[0]['ramalOuTelefone'])
@@ -405,7 +402,6 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
 
     public function testListarContatosVazios()
     {
-
         $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9
 .eyJpYXQiOjE0NzA2MDczMDAsImlzcyI6ImRvdWdsYXNwYXNxdWEuY29tIiwiZXhwIjox
 NDcwNjEwOTAwLCJuYmYiOjE0NzA2MDcyOTksImRhdGEiOnsiaWQiOjEsIm5hbWUiOiJEb3
@@ -434,7 +430,7 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
             ->setUpdatedAt($this->criarDataCadastro())
             ->setDeletedAt($usuarioC['deletedAt']);
 
-        //Para o repositorio
+        // Para o repositorio
         $modelo = new Contato();
 
         $input = [
@@ -505,7 +501,7 @@ VnbGFzIFBhc3F1YSJ9fQ.WuT3TRLqUkzOgDdEr1YiQdXhz0OvwMDTzYpeKDDFDAY';
             ->setUpdatedAt($this->criarDataCadastro())
             ->setDeletedAt($dataUsuario['deletedAt']);
 
-        //Para o repositorio
+        // Para o repositorio
         $modelo = new Contato();
         $modelo->setNome($contatoRetorno['nome'])
             ->setRamalOuTelefone($contatoRetorno['ramalOuTelefone'])
