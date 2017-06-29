@@ -4,11 +4,11 @@ declare(strict_types=1);
 namespace ContatoModulo\Aplicacao\Excel;
 
 /**
- * Class LeitorArquivoExcel
+ * Class LeitorArquivoContatos
  *
  * @package ContatoModulo\Aplicacao\Excel
  */
-class LeitorArquivoExcel
+class LeitorArquivoContatos
 {
     /**
      * @param string $arquivo

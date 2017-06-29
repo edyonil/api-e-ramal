@@ -137,7 +137,7 @@ class Usuario implements ModeloInterface
             'id' => $this->getId(),
             'nome' => $this->getNome(),
             'email' => $this->getEmail(),
-            'ativo' => $this->ativo(),
+            'ativo' => $this->getAtivo(),
             'primeiroAcesso' => $this->primeiroAcesso(),
             'compartilharContatos' => $this->getCompartilharContatos(),
             'createdAt' => $this->tratarData($this->getCreatedAt()),
@@ -206,7 +206,7 @@ class Usuario implements ModeloInterface
     /**
      * @return bool
      */
-    public function ativo(): bool
+    public function getAtivo(): bool
     {
         return $this->ativo;
     }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App\Middleware;
 
 use ContatoModulo\Aplicacao\Autenticacao\AutenticacaoJWT;
+use Firebase\JWT\ExpiredException;
+use Firebase\JWT\SignatureInvalidException;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -43,6 +45,8 @@ class VerificacaoTokenMiddleware implements MiddlewareInterface
             $request = $request->withAttribute('token', $this->token);
 
             return $delegate->process($request);
+        } catch (ExpiredException $e) {
+            return new JsonResponse(['message' => $e->getMessage()], 401);
         } catch (\Exception $e) {
             return new JsonResponse(['message' => $e->getMessage()], 400);
         }

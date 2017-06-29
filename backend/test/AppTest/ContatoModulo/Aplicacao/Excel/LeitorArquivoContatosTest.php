@@ -3,16 +3,16 @@ declare(strict_types=1);
 
 namespace AppTest\ContatoModulo\Aplicacao\Excel;
 
-use ContatoModulo\Aplicacao\Excel\LeitorArquivoExcel;
+use ContatoModulo\Aplicacao\Excel\LeitorArquivoContatos;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class LeitorArquivoExcelTest
+ * Class LeitorArquivoContatosTest
  *
  * @package AppTest\ContatoModulo\Aplicacao\Excel
  * @group Excel
  */
-class LeitorArquivoExcelTest extends TestCase
+class LeitorArquivoContatosTest extends TestCase
 {
     public function testLerOConteudoDeUmArquivoExcel()
     {
@@ -36,7 +36,7 @@ class LeitorArquivoExcelTest extends TestCase
             ],
         ];
 
-        $leitor = new LeitorArquivoExcel();
+        $leitor = new LeitorArquivoContatos();
         $conteudo = $leitor->getConteudo($arquivo);
 
         $this->assertInternalType('array', $conteudo);

@@ -67,13 +67,13 @@ class AutenticacaoService implements AutenticacaoInterface
 
         if (is_null($usuario)) {
             throw new UsuarioException('Usuário ou senha inválido');
-        };
+        }
 
-        if (!$usuario->ativo()) {
+        if (!$usuario->getAtivo()) {
             throw new UsuarioException(
                 'Usuário inativo. Entre em contato com administrador'
             );
-        };
+        }
 
         $token = $this->tipoAutenticacao->getToken($usuario);
 
